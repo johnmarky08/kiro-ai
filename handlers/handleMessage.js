@@ -9,7 +9,7 @@ const commandsPath = path.join(__dirname, "..", "commands");
 const triggers = scanDir(".js", commandsPath);
 
 // Execute commands
-module.exports = (event, pageAccessToken) => {
+module.exports = async (event, pageAccessToken) => {
   const senderId = event.sender.id;
   const messageText = event.message.text;
 

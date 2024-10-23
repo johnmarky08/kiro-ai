@@ -4,7 +4,7 @@ const permission = 0;
 const description = "For testing purposes";
 const author = "John Marky Dev";
 
-const execute = (args) => {
+const execute = async (args) => {
   await global.sendMessage("Success");
 
   // Construct the Facebook Graph API URL for the profile picture
