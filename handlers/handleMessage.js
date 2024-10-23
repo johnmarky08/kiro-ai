@@ -13,7 +13,14 @@ module.exports = async (event, pageAccessToken) => {
     const senderId = event.sender.id;
     const messageText = event.message.text;
 
-    console.log("Received event:", event); // Log the incoming event
+    // Log the incoming event
+    console.log("Received event:", event);
+
+    // Ignore bot's own messages or any unwanted messages
+    if (event.message.is_echo) {
+      console.log("Ignoring bot's own message or system messages.");
+      return;
+    }
 
     // Check if the message contains text and is valid
     if (!messageText || typeof messageText !== 'string') {
@@ -47,20 +54,13 @@ module.exports = async (event, pageAccessToken) => {
 
           // Dynamically require the command file
           const commandPath = path.join(commandsPath, `${commandName}.js`);
+          const command = require(commandPath);
 
-          // Safety check to avoid recursive commands or invalid command files
-          if (!require.cache[require.resolve(commandPath)]) {
-            const command = require(commandPath);
-
-            if (typeof command.execute === "function") {
-              // Make sure to await the command execution and avoid loops
-              await command.execute(args);
-            } else {
-              console.error(`Execute function not defined for command: ${commandName}`);
-              await global.sendMessage({ text: "Execute function is not defined!" });
-            }
+          if (typeof command.execute === "function") {
+            await command.execute(args); // Await the command execution
           } else {
-            console.error(`Command already required: ${commandName}`);
+            console.error(`Execute function not defined for command: ${commandName}`);
+            await global.sendMessage({ text: "Execute function is not defined!" });
           }
         } catch (err) {
           await global.sendMessage({ text: "An error occurred while executing the command." });
