@@ -49,6 +49,8 @@ function handleMessage(event, pageAccessToken) {
           console.error('Error calling Gemini API:', error);
           sendMessage(senderId, { text: 'Sorry, there was an error processing your request.' }, pageAccessToken);
         });
+    } else if (messageText.includes('hi')) {
+      sendMessage(senderId, { text: "SUCCESS!! Kiro AI."}, pageAccessToken);
     }
   }
 }
