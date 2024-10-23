@@ -10,6 +10,10 @@ const VERIFY_TOKEN = 'pagebot';
 // Read the token from the file
 const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
 
+app.get("/", (req, res) => {
+  res.send("Success!");
+})
+
 // Verify that the verify token matches
 app.get('/webhook', (req, res) => {
   const mode = req.query['hub.mode'];
