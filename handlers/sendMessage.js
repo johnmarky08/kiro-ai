@@ -14,7 +14,7 @@ module.exports = async (senderId, message, pageAccessToken) => {
       if (error) {
         console.error('Error sending message:', error);
         return reject(error);
-      } 
+      }
 
       if (body.error) {
         console.error('Error response:', body.error);
@@ -22,7 +22,7 @@ module.exports = async (senderId, message, pageAccessToken) => {
       }
 
       console.log('Message sent successfully:', body);
-      resolve(body);
+      return resolve(body);
     });
   });
 };
