@@ -21,10 +21,10 @@ module.exports = async (event, pageAccessToken) => {
       console.log("Attempting to send message:", message); // Log the message to be sent
       if (typeof message === "object") {
         // If the message is an object, send it with senderId and pageAccessToken
-        await sendMessage(senderId, message, pageAccessToken);
+        return await sendMessage(senderId, message, pageAccessToken);
       } else if (typeof message === "string") {
         // If the message is a string, wrap it in an object
-        await sendMessage(senderId, { text: message }, pageAccessToken);
+        return await sendMessage(senderId, { text: message }, pageAccessToken);
       }
     } catch (error) {
       console.error("Failed to send message:", error);

@@ -14,15 +14,13 @@ module.exports = async (senderId, message, pageAccessToken) => {
       if (error) {
         console.error('Error sending message:', error);
         return reject(error);
-      }
-
-      if (body.error) {
+      } else if (body.error) {
         console.error('Error response:', body.error);
         return reject(body.error);
+      } else {
+        console.log('Message sent successfully:', body);
+        return resolve(body);
       }
-
-      console.log('Message sent successfully:', body);
-      return resolve(body);
     });
   });
-};
+}
