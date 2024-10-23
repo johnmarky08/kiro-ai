@@ -1,7 +1,6 @@
 const express = require('express');
 const { handleMessage } = require('./handles/handleMessage');
 const { handlePostback } = require('./handles/handlePostback');
-const fs = require('fs-extra');
 
 const app = express();
 app.use(express.json());
@@ -9,7 +8,7 @@ app.use(express.json());
 // Set the verify token and page access token
 const VERIFY_TOKEN = 'pagebot';
 // Read the token from the file
-const PAGE_ACCESS_TOKEN = fs.readFileSync('./token.txt', 'utf8');
+const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
 
 // Verify that the verify token matches
 app.get('/webhook', (req, res) => {
