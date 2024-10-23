@@ -22,10 +22,12 @@ const execute = async (args, messenger) => {
 
     console.log(imageUrl);
     console.log("Sending image attachment...");
-    await messenger.sendMessage({
-      text: "Here is your image:",
-      attachment
-    });
+    const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
+    await messenger.sendMessage(`Success: ${args}`);
+    await sleep(100);
+    await messenger.sendMessage({ attachment });
+
     console.log("Image attachment sent.");
   } catch (error) {
     console.error(`Error in executing '${commandName}' command:`, error);
