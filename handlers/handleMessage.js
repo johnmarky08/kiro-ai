@@ -13,12 +13,11 @@ module.exports = async (event, pageAccessToken) => {
     const senderId = event.sender.id;
     const messageText = event.message.text;
 
-    // Log the incoming event
-    console.log("Received event:", event);
+    console.log("Received event:", event); // Log the incoming event
 
-    // Ignore bot's own messages or any unwanted messages
+    // Check if the event is an echo message or bot's own message to avoid loops
     if (event.message.is_echo) {
-      console.log("Ignoring bot's own message or system messages.");
+      console.log("Ignoring echo message or bot's own message to prevent loops.");
       return;
     }
 
@@ -57,7 +56,7 @@ module.exports = async (event, pageAccessToken) => {
           const command = require(commandPath);
 
           if (typeof command.execute === "function") {
-            await command.execute(args); // Await the command execution
+            await command.execute(args, event); // Pass the event to the command execution
           } else {
             console.error(`Execute function not defined for command: ${commandName}`);
             await global.sendMessage({ text: "Execute function is not defined!" });

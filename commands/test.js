@@ -4,8 +4,14 @@ const permission = 0;
 const description = "For testing purposes";
 const author = "John Marky Dev";
 
-const execute = async (args) => {
+const execute = async (args, event) => {
   try {
+    // Check if the message is an echo to avoid processing the bot's own messages
+    if (event.message && event.message.is_echo) {
+      console.log("Ignoring bot's own echo message.");
+      return;
+    }
+
     // Log the start of the command execution for debugging
     console.log("Executing 'test' command with args:", args);
 
