@@ -9,8 +9,7 @@ module.exports = async (senderId, message, pageAccessToken) => {
         recipient: { id: senderId },
         message: message,
       },
-      params: { access_token: pageAccessToken },
-      timeout: 5000,
+      params: { access_token: pageAccessToken }
     };
 
     const response = await axios(options);
