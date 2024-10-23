@@ -9,6 +9,7 @@ module.exports = async (senderId, message, pageAccessToken) => {
       recipient: { id: senderId },
       message: message,
     },
+    timeout: 500
   };
 
   try {
