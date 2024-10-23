@@ -5,6 +5,10 @@ const description = "For testing purposes";
 const author = "John Marky Dev";
 
 const execute = (args) => {
+  const path = require("path");
+  const fs = require("fs-extra");
+  const request = require("request");
+  
   global.sendMessage("Success");
 
   const tempImagePath = path.join('/tmp', 'test.png'); // Using /tmp for temporary storage
