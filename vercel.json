@@ -11,5 +11,16 @@
       "src": "/(.*)",
       "dest": "/index.js"
     }
+  ],
+  "functions": {
+    "api/cron-job.js": {
+      "runtime": "nodejs18.x"
+    }
+  },
+  "crons": [
+    {
+      "path": "/api/cron-job",
+      "schedule": "*/5 * * * *"
+    }
   ]
 }

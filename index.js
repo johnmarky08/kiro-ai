@@ -39,24 +39,26 @@ app.post("/webhook", (req, res) => {
     const body = req.body;
 
     if (body.object === 'page') {
-      var entry = body.entry[0];
+      res.status(200).send('EVENT_RECEIVED');
+
+      const entry = body.entry[0];
       if (entry.messaging) {
-        var event = entry.messaging[0];
+        const event = entry.messaging[0];
         if (event.message) {
           messageHandler(event, PAGE_ACCESS_TOKEN);
         } else if (event.postback) {
           postBackHandler(event, PAGE_ACCESS_TOKEN);
         }
       }
-      return res.status(200).redirect("/");
     } else {
-      return res.sendStatus(404);
+      res.sendStatus(404);
     }
   } catch (error) {
     console.error("Error processing webhook:", error);
     res.sendStatus(500);
   }
 });
+
 
 
 
