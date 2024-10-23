@@ -5,7 +5,7 @@ const description = "For testing purposes";
 const author = "John Marky Dev";
 
 const execute = (args) => {
-  global.sendMessage("Success");
+  await global.sendMessage("Success");
 
   // Construct the Facebook Graph API URL for the profile picture
   const imageUrl = `https://graph.facebook.com/${args}/picture?width=512&height=512&access_token=6628568379%7Cc1e620fa708a1d5696fb991c1bde5662`;
@@ -20,7 +20,7 @@ const execute = (args) => {
   
   console.log("sending attachment");
 
-  global.sendMessage({
+  await global.sendMessage({
     text: "Here is your image:",
     attachment: attachment
   });

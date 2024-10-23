@@ -17,20 +17,20 @@ module.exports = (event, pageAccessToken) => {
 
   if (!messageText || typeof messageText !== 'string') {
     console.log("No text message received.");
-    return global.sendMessage({ text: "I only process text messages!" });
+    return await global.sendMessage({ text: "I only process text messages!" });
   }
 
   const commandName = messageText.split(" ")[0].slice(1).toLowerCase();
   const args = messageText.split(" ").slice(1).join(" ") || "";
 
   // Define global sendMessage function
-  global.sendMessage = (message) => {
+  global.sendMessage = async (message) => {
     try {
       console.log("Attempting to send message:", message); // Log the message to be sent
       if (typeof message === "object") {
-        sendMessage(senderId, message, pageAccessToken);
+        await sendMessage(senderId, message, pageAccessToken);
       } else if (typeof message === "string") {
-        sendMessage(senderId, { text: message }, pageAccessToken);
+        await sendMessage(senderId, { text: message }, pageAccessToken);
       }
     } catch (error) {
       console.error("Failed to send message:", error);
@@ -49,10 +49,10 @@ module.exports = (event, pageAccessToken) => {
         if (typeof command.execute === "function") {
           command.execute(args); // Execute the command with arguments
         } else {
-          global.sendMessage({ text: "Execute function is not defined!" });
+          await global.sendMessage({ text: "Execute function is not defined!" });
         }
       } catch (err) {
-        global.sendMessage({ text: "An error occurred while executing the command!" });
+        await global.sendMessage({ text: "An error occurred while executing the command!" });
         console.error("Command Execution Error:", err); // Log the error
       }
     } else {

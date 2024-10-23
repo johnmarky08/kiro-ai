@@ -3,5 +3,5 @@ module.exports = (event, pageAccessToken) => {
   const payload = event.postback.payload;
 
   // Send a message back to the sender
-  global.sendMessage(`You sent a postback with payload: ${payload}`);
+  await global.sendMessage(`You sent a postback with payload: ${payload}`);
 }
