@@ -47,13 +47,20 @@ module.exports = async (event, pageAccessToken) => {
 
           // Dynamically require the command file
           const commandPath = path.join(commandsPath, `${commandName}.js`);
-          const command = require(commandPath);
 
-          if (typeof command.execute === "function") {
-            await command.execute(args); // Await the command execution
+          // Safety check to avoid recursive commands or invalid command files
+          if (!require.cache[require.resolve(commandPath)]) {
+            const command = require(commandPath);
+
+            if (typeof command.execute === "function") {
+              // Make sure to await the command execution and avoid loops
+              await command.execute(args);
+            } else {
+              console.error(`Execute function not defined for command: ${commandName}`);
+              await global.sendMessage({ text: "Execute function is not defined!" });
+            }
           } else {
-            console.error(`Execute function not defined for command: ${commandName}`);
-            await global.sendMessage({ text: "Execute function is not defined!" });
+            console.error(`Command already required: ${commandName}`);
           }
         } catch (err) {
           await global.sendMessage({ text: "An error occurred while executing the command." });
@@ -68,6 +75,5 @@ module.exports = async (event, pageAccessToken) => {
     }
   } catch (error) {
     console.error("Error processing event:", error);
-    // Optionally send an error message to the user
   }
 };
