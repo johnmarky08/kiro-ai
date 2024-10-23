@@ -15,27 +15,35 @@ module.exports = (event, pageAccessToken) => {
   const commandName = messageText.split(" ")[0].slice(1).toLowerCase();
   const args = messageText.split(" ").slice(1).join(" ") || "";
 
-  global.sendMessage = (message) => {
-    if (typeof(message) === "object") {
-      sendMessage(senderId, message, pageAccessToken);
-    } else if (typeof(message) === "string") {
-      sendMessage(senderId, { text: message }, pageAccessToken);
-    }
+  // Check if sendMessage is imported or passed to this module
+  if (typeof sendMessage === "undefined") {
+    throw new Error("sendMessage function is not defined.");
   }
 
+  // Define global sendMessage function
+  global.sendMessage = (message) => {
+    if (typeof message === "object") {
+      sendMessage(senderId, message, pageAccessToken);
+    } else if (typeof message === "string") {
+      sendMessage(senderId, { text: message }, pageAccessToken);
+    }
+  };
+
+  // Ensure the message starts with the correct prefix
   if (messageText[0] === global.config.PREFIX) {
     if (triggers.includes(commandName)) {
       try {
         const commandPath = path.join(commandsPath, triggers[triggers.indexOf(commandName)]);
         const command = require(commandPath);
-        if (command.execute) {
-          command.execute(args);
+
+        if (typeof command.execute === "function") {
+          command.execute(args); // Execute the command with arguments
         } else {
-          return sendMessage(senderId, { text: "Execute Function is not defined!" }, pageAccessToken);
+          global.sendMessage({ text: "Execute function is not defined!" });
         }
       } catch (err) {
-        sendMessage(senderId, { text: "An error occurred while executing the command!" }, pageAccessToken);
-        return console.error(err);
+        global.sendMessage({ text: "An error occurred while executing the command!" });
+        console.error("Command Execution Error:", err);
       }
     }
   }
