@@ -1,4 +1,4 @@
-module.exports = (event, pageAccessToken) => {
+module.exports = async (event, pageAccessToken) => {
   const senderId = event.sender.id;
   const payload = event.postback.payload;
 
