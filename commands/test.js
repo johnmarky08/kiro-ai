@@ -17,6 +17,8 @@ const execute = (args) => {
       is_reusable: true
     }
   };
+  
+  console.log("sending attachment");
 
   global.sendMessage({
     text: "Here is your image:",

@@ -25,17 +25,18 @@ module.exports = (event, pageAccessToken) => {
 
   // Define global sendMessage function
   global.sendMessage = (message) => {
-    console.log("Attempting to send message:", message); // Log the message to be sent
-    if (typeof message === "object") {
-      try {
+    try {
+      console.log("Attempting to send message:", message); // Log the message to be sent
+      if (typeof message === "object") {
         sendMessage(senderId, message, pageAccessToken);
-      } catch (err) {
-        console.log("Cannot send with error:", err);
+      } else if (typeof message === "string") {
+        sendMessage(senderId, { text: message }, pageAccessToken);
       }
-    } else if (typeof message === "string") {
-      sendMessage(senderId, { text: message }, pageAccessToken);
+    } catch (error) {
+      console.error("Failed to send message:", error);
     }
   };
+
 
   // Ensure the message starts with the correct prefix
   if (messageText[0] === global.config.PREFIX) {
