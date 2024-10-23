@@ -12,13 +12,13 @@ const triggers = scanDir(".js", commandsPath);
 module.exports = (event, pageAccessToken) => {
   const senderId = event.sender.id;
   const messageText = event.message.text;
+
+  if (!messageText || typeof messageText !== 'string') {
+    return global.sendMessage({ text: "I only process text messages!" });
+  }
+
   const commandName = messageText.split(" ")[0].slice(1).toLowerCase();
   const args = messageText.split(" ").slice(1).join(" ") || "";
-
-  // Check if sendMessage is imported or passed to this module
-  if (typeof sendMessage === "undefined") {
-    throw new Error("sendMessage function is not defined.");
-  }
 
   // Define global sendMessage function
   global.sendMessage = (message) => {
