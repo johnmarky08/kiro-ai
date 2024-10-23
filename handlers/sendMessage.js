@@ -1,9 +1,7 @@
 const axios = require("axios");
 
-const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
-
 module.exports = async (senderId, message, pageAccessToken) => {
-  const maxRetries = 3;
+  const maxRetries = 3; // Set the maximum number of retries
   let attempt = 0;
 
   while (attempt < maxRetries) {
@@ -16,12 +14,12 @@ module.exports = async (senderId, message, pageAccessToken) => {
           message: message,
         },
         params: { access_token: pageAccessToken },
-        timeout: 5000,
+        timeout: 5000, // Set timeout to 5 seconds
       };
 
       const response = await axios(options);
       console.log('Message sent successfully:', response.data);
-      return response.data;
+      return response.data; // Resolve with the response data
     } catch (error) {
       if (error.response) {
         console.error('Error response:', error.response.data.error);
@@ -29,11 +27,9 @@ module.exports = async (senderId, message, pageAccessToken) => {
         console.error('Error sending message:', error.message);
       }
 
-      attempt += 1;
+      attempt += 1; // Increment the retry count
       if (attempt < maxRetries) {
-        const backoffTime = Math.pow(2, attempt) * 100;
-        console.log(`Retrying in ${backoffTime} ms...`);
-        await sleep(backoffTime);
+        console.log(`Retrying... (${attempt}/${maxRetries})`);
       } else {
         throw new Error('Max retries reached. Failed to send message.');
       }
