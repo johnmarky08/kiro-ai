@@ -1,11 +1,10 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 const { handleMessage } = require('./handles/handleMessage');
 const { handlePostback } = require('./handles/handlePostback');
-const fs = require('fs');
+const fs = require('fs-extra');
 
 const app = express();
-app.use(bodyParser.json());
+app.use(express.json());
 
 // Set the verify token and page access token
 const VERIFY_TOKEN = 'pagebot';
