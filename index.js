@@ -48,7 +48,7 @@ app.post("/webhook", (req, res) => {
           postBackHandler(event, PAGE_ACCESS_TOKEN);
         }
       }
-      return res.status(200).send("EVENT_RECEIVED");
+      return res.status(200).redirect("/");
     } else {
       return res.sendStatus(404);
     }
