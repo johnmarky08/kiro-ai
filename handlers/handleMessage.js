@@ -1,5 +1,6 @@
 const path = require("path");
 const scanDir = require("../lib/scanDir");
+const sendMessage = require("./sendMessage");
 
 // Path where the commands are stored
 const commandsPath = path.join(__dirname, "..", "commands");
@@ -16,7 +17,7 @@ module.exports = async (event, pageAccessToken) => {
     console.log("Received event:", event); // Log the incoming event
 
     // Check if the event is an echo message or bot's own message to avoid loops
-    if (event.message.is_echo) {
+    if (event.message.is_echo || senderId === 'YOUR_BOT_ID') {
       console.log("Ignoring echo message or bot's own message to prevent loops.");
       return;
     }
@@ -24,26 +25,13 @@ module.exports = async (event, pageAccessToken) => {
     // Check if the message contains text and is valid
     if (!messageText || typeof messageText !== 'string') {
       console.log("No valid text message received.");
-      return await global.sendMessage({ text: "I only process text messages!" }, pageAccessToken);
+      await sendMessage(senderId, { text: "I only process text messages!" }, pageAccessToken);
+      return;
     }
 
     // Extract the command and arguments
     const commandName = messageText.split(" ")[0].slice(1).toLowerCase();
     const args = messageText.split(" ").slice(1).join(" ") || "";
-
-    // Define global sendMessage function
-    global.sendMessage = async (message) => {
-      try {
-        console.log("Attempting to send message:", message); // Log the message to be sent
-        if (typeof message === "object") {
-          await sendMessage(senderId, message, pageAccessToken);
-        } else if (typeof message === "string") {
-          await sendMessage(senderId, { text: message }, pageAccessToken);
-        }
-      } catch (error) {
-        console.error("Failed to send message:", error);
-      }
-    };
 
     // Ensure the message starts with the correct prefix
     if (messageText[0] === global.config.PREFIX) {
@@ -59,15 +47,15 @@ module.exports = async (event, pageAccessToken) => {
             await command.execute(args, event); // Pass the event to the command execution
           } else {
             console.error(`Execute function not defined for command: ${commandName}`);
-            await global.sendMessage({ text: "Execute function is not defined!" });
+            await sendMessage(senderId, { text: "Execute function is not defined!" }, pageAccessToken);
           }
         } catch (err) {
-          await global.sendMessage({ text: "An error occurred while executing the command." });
+          await sendMessage(senderId, { text: "An error occurred while executing the command." }, pageAccessToken);
           console.error("Command execution error:", err); // Log the error for debugging
         }
       } else {
         console.log(`Command not found: ${commandName}`); // Log if command doesn't exist
-        await global.sendMessage({ text: `Command '${commandName}' not found.` });
+        await sendMessage(senderId, { text: `Command '${commandName}' not found.` }, pageAccessToken);
       }
     } else {
       console.log("Message did not start with the correct prefix.");
