@@ -31,7 +31,7 @@ module.exports = async (senderId, message, pageAccessToken) => {
       recipient: { id: senderId },
       message: message,
     },
-    timeout: 1000,
+    timeout: 5000,
   };
 
   return sendMessageWithRetries(options);
