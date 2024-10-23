@@ -13,7 +13,7 @@ module.exports = (event, pageAccessToken) => {
   const senderId = event.sender.id;
   const messageText = event.message.text;
 
-  console.log("Received event:", event);  // Log the incoming event
+  console.log("Received event:", event); // Log the incoming event
 
   if (!messageText || typeof messageText !== 'string') {
     console.log("No text message received.");
@@ -25,7 +25,7 @@ module.exports = (event, pageAccessToken) => {
 
   // Define global sendMessage function
   global.sendMessage = (message) => {
-    console.log("Attempting to send message:", message);  // Log the message to be sent
+    console.log("Attempting to send message:", message); // Log the message to be sent
     if (typeof message === "object") {
       sendMessage(senderId, message, pageAccessToken);
     } else if (typeof message === "string") {
@@ -35,23 +35,23 @@ module.exports = (event, pageAccessToken) => {
 
   // Ensure the message starts with the correct prefix
   if (messageText[0] === global.config.PREFIX) {
-    if (triggers.includes(commandName)) {
+    if (triggers.includes(`${commandName}.js`)) {
       try {
-        console.log("Executing command:", commandName);  // Log the command being executed
-        const commandPath = path.join(commandsPath, triggers[triggers.indexOf(commandName)]);
+        console.log("Executing command:", commandName); // Log the command being executed
+        const commandPath = path.join(commandsPath, `${commandName}.js`);
         const command = require(commandPath);
 
         if (typeof command.execute === "function") {
-          command.execute(args);  // Execute the command with arguments
+          command.execute(args); // Execute the command with arguments
         } else {
           global.sendMessage({ text: "Execute function is not defined!" });
         }
       } catch (err) {
         global.sendMessage({ text: "An error occurred while executing the command!" });
-        console.error("Command Execution Error:", err);  // Log the error
+        console.error("Command Execution Error:", err); // Log the error
       }
     } else {
-      console.log("Command not found:", commandName);  // Log if command doesn't exist
+      console.log("Command not found:", commandName); // Log if command doesn't exist
     }
   } else {
     console.log("Message did not start with the correct prefix.");
