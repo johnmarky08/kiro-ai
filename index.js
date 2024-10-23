@@ -32,26 +32,31 @@ app.get('/webhook', (req, res) => {
 
 // Handle messages and postbacks
 app.post('/webhook', (req, res) => {
-  const body = req.body;
+  try {
+    const body = req.body;
 
-  if (body.object === 'page') {
-    body.entry.forEach(entry => {
-      if (entry.messaging) { // Check if 'messaging' exists in entry
-        entry.messaging.forEach(event => {
-          if (event.message) {
-            handleMessage(event, PAGE_ACCESS_TOKEN);
-          } else if (event.postback) {
-            handlePostback(event, PAGE_ACCESS_TOKEN);
-          }
-        });
-      }
-    });
-
-    return res.status(200).send('EVENT_RECEIVED');
-  } else {
-    return res.sendStatus(404);
+    if (body.object === 'page') {
+      body.entry.forEach(entry => {
+        if (entry.messaging) {
+          entry.messaging.forEach(event => {
+            if (event.message) {
+              handleMessage(event, PAGE_ACCESS_TOKEN);
+            } else if (event.postback) {
+              handlePostback(event, PAGE_ACCESS_TOKEN);
+            }
+          });
+        }
+      });
+      return res.status(200).send('EVENT_RECEIVED');
+    } else {
+      return res.sendStatus(404);
+    }
+  } catch (error) {
+    console.error('Error processing webhook:', error);
+    res.sendStatus(500);
   }
 });
+
 
 
 // Start the server
