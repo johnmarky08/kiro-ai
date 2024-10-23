@@ -13,13 +13,13 @@
     }
   ],
   "functions": {
-    "api/cron-job.js": {
+    "functions/keepAlive.js": {
       "runtime": "nodejs18.x"
     }
   },
   "crons": [
     {
-      "path": "/api/cron-job",
+      "path": "/functions/keepAlive",
       "schedule": "*/5 * * * *"
     }
   ]

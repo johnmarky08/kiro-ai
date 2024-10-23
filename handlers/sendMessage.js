@@ -1,7 +1,14 @@
 const axios = require("axios");
+const https = require("https");
 
 module.exports = async (senderId, message, pageAccessToken) => {
   try {
+    const agent = new https.Agent({
+      keepAlive: true,
+      rejectUnauthorized: true,
+      minVersion: 'TLSv1.2'
+    });
+
     const options = {
       url: 'https://graph.facebook.com/v21.0/me/messages',
       method: 'POST',
@@ -9,7 +16,8 @@ module.exports = async (senderId, message, pageAccessToken) => {
         recipient: { id: senderId },
         message: message,
       },
-      params: { access_token: pageAccessToken }
+      params: { access_token: pageAccessToken },
+      httpsAgent: agent
     };
 
     const response = await axios(options);

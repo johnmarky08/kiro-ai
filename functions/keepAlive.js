@@ -1,6 +1,6 @@
 const axios = require('axios');
 
-module.exports = async function handler(req, res) {
+module.exports = async (req, res) => {
   try {
     console.log("Cron job executed");
     
