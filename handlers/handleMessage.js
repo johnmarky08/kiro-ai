@@ -27,7 +27,11 @@ module.exports = (event, pageAccessToken) => {
   global.sendMessage = (message) => {
     console.log("Attempting to send message:", message); // Log the message to be sent
     if (typeof message === "object") {
-      sendMessage(senderId, message, pageAccessToken);
+      try {
+        sendMessage(senderId, message, pageAccessToken);
+      } catch (err) {
+        console.log("Cannot send with error:", err);
+      }
     } else if (typeof message === "string") {
       sendMessage(senderId, { text: message }, pageAccessToken);
     }
