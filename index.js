@@ -1,6 +1,6 @@
 const express = require("express");
-const handleMessage = require("./handlers/handleMessage");
-const handlePostback = require("./handlers/handlePostback");
+const messageHandler = require("./handlers/messageHandler");
+const postBackHandler = require("./handlers/postBackHandler");
 
 const app = express();
 app.use(express.json());
@@ -43,9 +43,9 @@ app.post("/webhook", (req, res) => {
       if (entry.messaging) {
         var event = entry.messaging[0];
         if (event.message) {
-          handleMessage(event, PAGE_ACCESS_TOKEN);
+          messageHandler(event, PAGE_ACCESS_TOKEN);
         } else if (event.postback) {
-          handlePostback(event, PAGE_ACCESS_TOKEN);
+          postBackHandler(event, PAGE_ACCESS_TOKEN);
         }
       }
       return res.status(200).send("EVENT_RECEIVED");

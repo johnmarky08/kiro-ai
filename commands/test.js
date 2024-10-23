@@ -17,13 +17,15 @@ const execute = async (args, messenger) => {
         is_reusable: true
       }
     };
-
+    
+    console.log(imageUrl);
+    console.log(JSON.stringify(attachment));
     await messenger.sendMessage({
       text: "Here is your image:",
-      attachment: attachment
+      attachment
     });
   } catch (error) {
-    console.error("Error in executing 'test' command:", error);
+    console.error(`Error in executing '${commandName}' command:`, error);
     await messenger.sendMessage("An error occurred while processing your request.");
   }
 };
