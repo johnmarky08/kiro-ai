@@ -36,20 +36,23 @@ app.post('/webhook', (req, res) => {
 
   if (body.object === 'page') {
     body.entry.forEach(entry => {
-      entry.messaging.forEach(event => {
-        if (event.message) {
-          handleMessage(event, PAGE_ACCESS_TOKEN);
-        } else if (event.postback) {
-          handlePostback(event, PAGE_ACCESS_TOKEN);
-        }
-      });
+      if (entry.messaging) { // Check if 'messaging' exists in entry
+        entry.messaging.forEach(event => {
+          if (event.message) {
+            handleMessage(event, PAGE_ACCESS_TOKEN);
+          } else if (event.postback) {
+            handlePostback(event, PAGE_ACCESS_TOKEN);
+          }
+        });
+      }
     });
 
-    res.status(200).send('EVENT_RECEIVED');
+    return res.status(200).send('EVENT_RECEIVED');
   } else {
-    res.sendStatus(404);
+    return res.sendStatus(404);
   }
 });
+
 
 // Start the server
 const PORT = process.env.PORT || 3000;
