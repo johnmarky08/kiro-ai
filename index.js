@@ -1,5 +1,4 @@
 const express = require("express");
-const WebSocket = require("ws");
 const messageHandler = require("./handlers/messageHandler");
 const postBackHandler = require("./handlers/postBackHandler");
 
@@ -58,44 +57,6 @@ app.post("/webhook", (req, res) => {
 
 const PORT = process.env.PORT || 3000;
 
-const server = app.listen(PORT, () => {
+app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
-
-const wss = new WebSocket.Server({ server });
-
-wss.on("connection", (ws) => {
-  console.log("New client connected");
-
-  ws.on("message", (message) => {
-    console.log(`Received message: ${message}`);
-    ws.send(`Server received: ${message}`);
-  });
-
-  ws.on("close", () => {
-    console.log("Client disconnected");
-  });
-});
-
-const simulateClient = () => {
-  const client = new WebSocket(`ws://localhost:${PORT}`);
-
-  client.on("open", () => {
-    console.log("Client connected to the server");
-    setInterval(() => {
-      const message = "Hello from the client!";
-      console.log(`Sending: ${message}`);
-      client.send(message);
-    }, 5000);
-  });
-
-  client.on("message", (message) => {
-    console.log(`Received from server: ${message}`);
-  });
-
-  client.on("close", () => {
-    console.log("Client disconnected from server");
-  });
-};
-
-simulateClient();
