@@ -1,24 +1,9 @@
 const express = require("express");
-const rateLimit = require("express-rate-limit");
-const morgan = require("morgan");
 const messageHandler = require("./handlers/messageHandler");
 const postBackHandler = require("./handlers/postBackHandler");
 
 const app = express();
 app.use(express.json());
-app.set('trust proxy', true);
-
-const getClientIp = (req) => {
-  return req.headers['x-forwarded-for'] ? req.headers['x-forwarded-for'].split(',')[0].trim() : req.connection.remoteAddress;
-};
-
-const limiter = rateLimit({
-  windowMs: 1 * 60 * 1000,
-  max: 100,
-  keyGenerator: (req, res) => getClientIp(req)
-});
-app.use(limiter);
-app.use(morgan('combined'));
 
 global.config = require("./config.json");
 
