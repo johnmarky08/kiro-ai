@@ -45,7 +45,7 @@ exports.reply = async (senderId, message, messageId, pageAccessToken) => {
       url: 'https://graph.facebook.com/v21.0/me/messages',
       method: 'POST',
       data: {
-        recipient: { id: senderID },
+        recipient: { id: senderId },
         message,
         messaging_type: 'RESPONSE',
         message_id: messageId
