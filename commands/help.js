@@ -6,11 +6,10 @@ const author = "John Marky Dev";
 
 const execute = async ({ args, messenger }) => {
   try {
-    const path = require("path");
     const axios = require("axios");
-    const { scanDir }= require("../settings/functions");
+
     try {
-      var commandInfo = require(path.join(__dirname, `${args.toLowerCase()}.js`));
+      var commandInfo = require(`./${args.toLowerCase()}`);
       if (!parseInt(args)) {
         var p = commandInfo.permission,
           _perm =
@@ -22,18 +21,7 @@ const execute = async ({ args, messenger }) => {
           "John Marky Dev" :
           "Everyone";
         return messenger.send(
-          "📝 DESCRIPTION OF " +
-          args.toUpperCase() +
-          "\n\n» Name: " +
-          commandInfo.commandName +
-          "\n» Version: " +
-          commandInfo.version +
-          "\n» Description: " +
-          commandInfo.description +
-          "\n» Author: " +
-          commandInfo.author +
-          "\n» Has Permission: " +
-          _perm,
+          `📝 DESCRIPTION OF ${args.toUpperCase()}\n\n» Name: ${commandInfo.commandName}\n» Version: ${commandInfo.version}\n» Description: ${commandInfo.description}\n» Author: ${commandInfo.author}\n» Has Permission: ${_perm}`,
         );
       }
     } catch {
@@ -45,7 +33,7 @@ const execute = async ({ args, messenger }) => {
       );
       var factss = res.data.data;
       let text = "";
-      var listFile = scanDir(".js", __dirname);
+      var listFile = global.commandsList;
       for (var i = 0; i < listFile.length; i++) {
         listFile[i] = listFile[i][0].toUpperCase() + listFile[i].slice(1);
       }

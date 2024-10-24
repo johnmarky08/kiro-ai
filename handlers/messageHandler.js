@@ -1,8 +1,6 @@
 const path = require("path");
 const moment = require("moment-timezone");
-const { scanDir }= require("../settings/functions");
 const commandsPath = path.join(__dirname, "..", "commands");
-const triggers = scanDir(".js", commandsPath);
 const Messenger = require("../model/messenger");
 
 
@@ -21,7 +19,7 @@ module.exports = async (event, pageAccessToken) => {
   const commandName = messageText.split(" ")[0].slice(1).toLowerCase();
   const args = messageText.split(" ").slice(1).join(" ") || "";
 
-  if (triggers.includes(commandName)) {
+  if (global.commandsList.includes(commandName)) {
     try {
       const commandPath = path.join(commandsPath, commandName);
       const command = require(commandPath);

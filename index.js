@@ -1,4 +1,5 @@
 const express = require("express");
+const fs = require("fs-extra");
 const messageHandler = require("./handlers/messageHandler");
 const postBackHandler = require("./handlers/postBackHandler");
 const { langText } = require("./settings/functions.js");
@@ -6,9 +7,27 @@ const { langText } = require("./settings/functions.js");
 const app = express();
 app.use(express.json());
 
+const commandsList = [];
 // Globals
 global.config = require("./config.json");
 global.langText = langText;
+global.commandsList = commandsList;
+
+// Load Commands
+var filteredFiles = fs
+  .readdirSync("./commands/")
+  .filter((file) => file.indexOf(".") !== 0 && file.slice(-3) === ".js");
+filteredFiles.map((file) => {
+  var fileName = require(path.join(__dirname, "commands", file));
+  commands[file.slice(0, -3)] = fileName;
+  console.log(
+    "Command " +
+    fileName.commandName +
+    " Successfully Loaded → Version: " +
+    fileName.version,
+  );
+  commandsList.push(fileName.commandName);
+});
 
 const VERIFY_TOKEN = "pagebot";
 const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
