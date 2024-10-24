@@ -1,7 +1,7 @@
 const axios = require("axios");
 const https = require("https");
 
-exports.send = async (senderId, message, pageAccessToken) => {
+const send = async (senderId, message, pageAccessToken) => {
   try {
     const agent = new https.Agent({
       keepAlive: true,
@@ -33,7 +33,7 @@ exports.send = async (senderId, message, pageAccessToken) => {
   }
 };
 
-exports.reply = async (senderId, message, messageId, pageAccessToken) => {
+const reply = async (senderId, message, messageId, pageAccessToken) => {
   try {
     const agent = new https.Agent({
       keepAlive: true,
@@ -66,3 +66,8 @@ exports.reply = async (senderId, message, messageId, pageAccessToken) => {
     throw new Error('Failed to send message.');
   }
 };
+
+module.exports = {
+  send,
+  reply
+}
