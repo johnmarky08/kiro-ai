@@ -69,6 +69,7 @@ wss.on("connection", (ws) => {
 
   ws.on("message", (message) => {
     console.log(`Received message: ${message}`);
+    ws.send(`Server received: ${message}`);
   });
 
   ws.on("close", () => {
@@ -76,11 +77,25 @@ wss.on("connection", (ws) => {
   });
 });
 
-setInterval(() => {
-  const updateMessage = { text: "This is an update message." };
-  wss.clients.forEach((client) => {
-    if (client.readyState === WebSocket.OPEN) {
-      client.send(JSON.stringify(updateMessage));
-    }
+const simulateClient = () => {
+  const client = new WebSocket(`ws://localhost:${PORT}`);
+
+  client.on("open", () => {
+    console.log("Client connected to the server");
+    setInterval(() => {
+      const message = "Hello from the client!";
+      console.log(`Sending: ${message}`);
+      client.send(message);
+    }, 5000);
   });
-}, 5000);
+
+  client.on("message", (message) => {
+    console.log(`Received from server: ${message}`);
+  });
+
+  client.on("close", () => {
+    console.log("Client disconnected from server");
+  });
+};
+
+simulateClient();
