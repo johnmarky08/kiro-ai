@@ -20,7 +20,10 @@ const execute = async ({ args, messenger }) => {
 
     await messenger.sendMessage(`Sending with photo`);
     await messenger.sendMessage({ attachment });
-
+    
+    
+    await messenger.reply(`Replying with photo`);
+    await messenger.reply({ attachment });
   } catch (error) {
     console.error(`Error in executing '${commandName}' command:`, error);
     await messenger.sendMessage("An error occurred while processing your request.");
