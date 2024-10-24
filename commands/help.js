@@ -21,7 +21,7 @@ const execute = async ({ args, messenger }) => {
           p == 3 ?
           "John Marky Dev" :
           "Everyone";
-        return message.reply(
+        return messenger.send(
           "📝 DESCRIPTION OF " +
           args.toUpperCase() +
           "\n\n» Name: " +
@@ -37,7 +37,7 @@ const execute = async ({ args, messenger }) => {
         );
       }
     } catch {
-      message.reply("Please Wait... ⚙️")
+      messenger.send("Please Wait... ⚙️")
       var one = 10;
       var page = parseInt(args) || 1;
       var res = await axios.get(
@@ -57,7 +57,7 @@ const execute = async ({ args, messenger }) => {
       for (let item of bago) {
         text += `〘 ${++slice} 〙 ` + global.config.PREFIX + item + "\n";
       }
-      return message.reply(
+      return messenger.send(
         `『 LIST OF COMMANDS 』\n\n` +
         text +
         "\n[ DYK ]: " +
