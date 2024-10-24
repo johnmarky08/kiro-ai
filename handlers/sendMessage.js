@@ -1,7 +1,7 @@
 const axios = require("axios");
 const https = require("https");
 
-exports.sendMessage = async (senderId, message, pageAccessToken) => {
+exports.send = async (senderId, message, pageAccessToken) => {
   try {
     const agent = new https.Agent({
       keepAlive: true,

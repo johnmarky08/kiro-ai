@@ -1,5 +1,5 @@
 const axios = require('axios');
-const { sendMessage, reply } = require("../handlers/sendMessage");
+const { send, reply } = require("../handlers/sendMessage");
 
 class Messenger {
   constructor(event, pageAccessToken) {
@@ -9,12 +9,12 @@ class Messenger {
     this.event = event;
   }
 
-  async sendMessage(message) {
+  async send(message) {
     try {
       if (typeof message === "object") {
-        return await sendMessage(this.senderID, message, this.pageAccessToken);
+        return await send(this.senderID, message, this.pageAccessToken);
       } else if (typeof message === "string") {
-        return await sendMessage(this.senderID, { text: message }, this.pageAccessToken);
+        return await send(this.senderID, { text: message }, this.pageAccessToken);
       }
     } catch (error) {
       console.error("Failed to send message:", error);

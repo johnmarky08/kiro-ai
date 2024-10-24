@@ -6,7 +6,7 @@ const author = "John Marky Dev";
 
 const execute = async ({ args, messenger }) => {
   try {
-    await messenger.sendMessage(`Success: ${args}`);
+    await messenger.send(`Success: ${args}`);
 
     const imageUrl = (await messenger.userProfile(args)).profile_pic;
 
@@ -18,15 +18,15 @@ const execute = async ({ args, messenger }) => {
       }
     };
 
-    await messenger.sendMessage(`Sending with photo`);
-    await messenger.sendMessage({ attachment });
+    await messenger.send(`Sending with photo`);
+    await messenger.send({ attachment });
     
     
     await messenger.reply(`Replying with photo`);
     await messenger.reply({ attachment });
   } catch (error) {
     console.error(`Error in executing '${commandName}' command:`, error);
-    await messenger.sendMessage("An error occurred while processing your request.");
+    await messenger.send("An error occurred while processing your request.");
   }
 };
 

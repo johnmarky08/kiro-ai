@@ -7,11 +7,11 @@ const author = "John Marky Dev";
 const execute = async ({ args, messenger }) => {
   try {
     if (!args) {
-      return await messenger.sendMessage(messenger.senderID);
+      return await messenger.send(messenger.senderID);
     }
   } catch (error) {
     console.error(`Error in executing '${commandName}' command:`, error);
-    await messenger.sendMessage("An error occurred while processing your request.");
+    await messenger.send("An error occurred while processing your request.");
   }
 };
 

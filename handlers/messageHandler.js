@@ -22,13 +22,13 @@ module.exports = async (event, pageAccessToken) => {
         if (typeof command.execute === "function") {
           await command.execute({ args, messenger });
         } else {
-          await messenger.sendMessage("Execute function is not defined!");
+          await messenger.send("Execute function is not defined!");
         }
       } catch (err) {
-        await messenger.sendMessage("An error occurred while executing the command.");
+        await messenger.send("An error occurred while executing the command.");
       }
     } else {
-      await messenger.sendMessage(`Command '${commandName}' not found.`);
+      await messenger.send(`Command '${commandName}' not found.`);
     }
   }
 };
