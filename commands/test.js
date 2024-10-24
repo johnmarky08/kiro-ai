@@ -18,10 +18,7 @@ const execute = async (args, messenger) => {
       }
     };
 
-    const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
-
     await messenger.sendMessage(`Sending with photo`);
-    await sleep(100);
     await messenger.sendMessage({ attachment });
 
   } catch (error) {

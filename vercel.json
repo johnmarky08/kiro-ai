@@ -11,16 +11,5 @@
       "src": "/(.*)",
       "dest": "/index.js"
     }
-  ],
-  "functions": {
-    "functions/keepAlive.js": {
-      "runtime": "nodejs18.x"
-    }
-  },
-  "crons": [
-    {
-      "path": "/functions/keepAlive",
-      "schedule": "*/5 * * * *"
-    }
   ]
 }
