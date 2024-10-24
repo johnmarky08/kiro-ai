@@ -45,7 +45,7 @@ module.exports = async (event, pageAccessToken) => {
         const command = require(commandPath);
 
         if (typeof command.execute === "function") {
-          await command.execute(args, messenger);
+          await command.execute({ args, messenger, event });
         } else {
           await messenger.sendMessage("Execute function is not defined!");
         }
