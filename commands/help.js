@@ -10,7 +10,7 @@ const execute = async ({ args, messenger }) => {
     const axios = require("axios");
     const { scanDir }= require("../settings/functions");
     try {
-      var commandInfo = require(path.join(__dirname, `${args}.js`));
+      var commandInfo = require(path.join(__dirname, `${args.toLowerCase()}.js`));
       if (!parseInt(args)) {
         var p = commandInfo.permission,
           _perm =
