@@ -1,9 +1,18 @@
 const express = require("express");
+const rateLimit = require("express-rate-limit");
+const morgan = require("morgan");
 const messageHandler = require("./handlers/messageHandler");
 const postBackHandler = require("./handlers/postBackHandler");
 
 const app = express();
 app.use(express.json());
+app.use(morgan('combined'));
+
+const limiter = rateLimit({
+  windowMs: 1 * 60 * 1000,
+  max: 100
+});
+app.use(limiter);
 
 global.config = require("./config.json");
 
@@ -30,7 +39,7 @@ app.get("/webhook", (req, res) => {
   }
 });
 
-app.post("/webhook", (req, res) => {
+app.post("/webhook", async (req, res) => {
   try {
     const body = req.body;
 
@@ -41,9 +50,9 @@ app.post("/webhook", (req, res) => {
       if (entry.messaging) {
         const event = entry.messaging[0];
         if (event.message) {
-          messageHandler(event, PAGE_ACCESS_TOKEN);
+          await messageHandler(event, PAGE_ACCESS_TOKEN);
         } else if (event.postback) {
-          postBackHandler(event, PAGE_ACCESS_TOKEN);
+          await postBackHandler(event, PAGE_ACCESS_TOKEN);
         }
       }
     } else {
@@ -55,8 +64,12 @@ app.post("/webhook", (req, res) => {
   }
 });
 
-const PORT = process.env.PORT || 3000;
+app.use((err, req, res, next) => {
+  console.error("Error occurred:", err.stack);
+  res.status(500).send("Internal Server Error");
+});
 
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
