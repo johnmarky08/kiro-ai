@@ -8,7 +8,7 @@ const execute = async ({ args, messenger }) => {
   try {
     await messenger.sendMessage(`Success: ${args}`);
 
-    const imageUrl = `https://graph.facebook.com/${args}/picture?width=512&height=512&access_token=6628568379%7Cc1e620fa708a1d5696fb991c1bde5662`;
+    const imageUrl = (await meesenger.userProfile(args)).profile_pic;
 
     const attachment = {
       type: "image",
