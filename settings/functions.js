@@ -1,4 +1,4 @@
-global.langText = function(...args) {
+const langText = (...args) => {
   try {
     //CREDITS TO MIRAI FOR THIS
     const lang = require(`./lang.json`);
@@ -11,4 +11,8 @@ global.langText = function(...args) {
   } catch (e) {
     console.error(e)
   }
+}
+
+module.exports = {
+  langText
 }

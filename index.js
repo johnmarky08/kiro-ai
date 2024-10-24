@@ -1,11 +1,14 @@
 const express = require("express");
 const messageHandler = require("./handlers/messageHandler");
 const postBackHandler = require("./handlers/postBackHandler");
+const { langText } = require("./settings/functions.js");
 
 const app = express();
 app.use(express.json());
 
+// Globals
 global.config = require("./config.json");
+global.langText = langText;
 
 const VERIFY_TOKEN = "pagebot";
 const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
