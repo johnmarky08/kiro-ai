@@ -21,7 +21,7 @@ class Messenger {
     }
   }
 
-  async senderProfile(userID) {
+  async userProfile(userID) {
     try {
       const response = await axios.get(`https://graph.facebook.com/v21.0/${userID}`, {
         params: {
