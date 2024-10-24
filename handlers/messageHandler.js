@@ -1,6 +1,5 @@
 const path = require("path");
 const scanDir = require("../lib/scanDir");
-const sendMessage = require("./sendMessage");
 const commandsPath = path.join(__dirname, "..", "commands");
 const triggers = scanDir(".js", commandsPath);
 const Messenger = require("../model/messenger");
