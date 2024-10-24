@@ -12,7 +12,7 @@ const execute = async ({ args, messenger }) => {
         attachment: {
           type: "image",
           payload: {
-            url: (await messenger.botProfile()).profile_pic,
+            url: (await messenger.botProfile()).picture.data.url,
             is_reusable: true
           }
         }

@@ -40,7 +40,7 @@ class Messenger {
       const response = await axios.get(`https://graph.facebook.com/v21.0/${userID}`, {
         params: {
           access_token: this.pageAccessToken,
-          fields: 'id,first_name,last_name,profile_pic',
+          fields: 'id,first_name,name,profile_pic,birthday,email,gender,link,location',
         },
       });
       return response.data;
@@ -55,7 +55,7 @@ class Messenger {
       const response = await axios.get(`https://graph.facebook.com/v21.0/me`, {
         params: {
           access_token: this.pageAccessToken,
-          fields: 'id,name,about,profile_pic,fan_count',
+          fields: 'id,name,about,picture,current_location,emails,followers_count,cover,fan_count,website',
         },
       });
       return response.data;
