@@ -4,10 +4,10 @@ const permission = 0;
 const description = "For testing purposes";
 const author = "John Marky Dev";
 
-const execute = async ({ args, messenger, event }) => {
+const execute = async ({ args, messenger }) => {
   try {
     if (!args) {
-      return await messenger.sendMessage(event.sender.id);
+      return await messenger.sendMessage(messenger.sender.id);
     }
   } catch (error) {
     console.error(`Error in executing '${commandName}' command:`, error);
