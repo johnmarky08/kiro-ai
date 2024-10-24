@@ -6,6 +6,7 @@ const postBackHandler = require("./handlers/postBackHandler");
 
 const app = express();
 app.use(express.json());
+app.set('trust proxy', true);
 app.use(morgan('combined'));
 
 const limiter = rateLimit({
