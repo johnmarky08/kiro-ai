@@ -1,4 +1,5 @@
 const express = require("express");
+const WebSocket = require("ws");
 const messageHandler = require("./handlers/messageHandler");
 const postBackHandler = require("./handlers/postBackHandler");
 
@@ -7,16 +8,13 @@ app.use(express.json());
 
 global.config = require("./config.json");
 
-// Set the verify token and page access token
 const VERIFY_TOKEN = "pagebot";
-// Read the token from the file
 const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
 
 app.get("/", (req, res) => {
   res.send("Success!");
 })
 
-// Verify that the verify token matches
 app.get("/webhook", (req, res) => {
   const hub = req.query.hub;
   const mode = hub.mode;
@@ -33,7 +31,6 @@ app.get("/webhook", (req, res) => {
   }
 });
 
-// Handle messages and postbacks
 app.post("/webhook", (req, res) => {
   try {
     const body = req.body;
@@ -59,11 +56,31 @@ app.post("/webhook", (req, res) => {
   }
 });
 
-
-
-
-// Start the server
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
+
+const server = app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
+
+const wss = new WebSocket.Server({ server });
+
+wss.on("connection", (ws) => {
+  console.log("New client connected");
+
+  ws.on("message", (message) => {
+    console.log(`Received message: ${message}`);
+  });
+
+  ws.on("close", () => {
+    console.log("Client disconnected");
+  });
+});
+
+setInterval(() => {
+  const updateMessage = { text: "This is an update message." };
+  wss.clients.forEach((client) => {
+    if (client.readyState === WebSocket.OPEN) {
+      client.send(JSON.stringify(updateMessage));
+    }
+  });
+}, 5000);
