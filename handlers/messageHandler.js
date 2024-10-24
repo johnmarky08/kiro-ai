@@ -1,5 +1,5 @@
 const path = require("path");
-const moment= require("moment-timezone");
+const moment = require("moment-timezone");
 const scanDir = require("../lib/scanDir");
 const commandsPath = path.join(__dirname, "..", "commands");
 const triggers = scanDir(".js", commandsPath);
@@ -38,4 +38,3 @@ module.exports = async (event, pageAccessToken) => {
     await messenger.send(`Command '${commandName}' not found.`);
   }
 }
-};
