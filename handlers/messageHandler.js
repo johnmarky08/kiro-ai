@@ -9,7 +9,7 @@ class Messenger {
   constructor(event, pageAccessToken) {
     this.senderID = event.sender.id;
     this.pageAccessToken = pageAccessToken;
-    this = event;
+    this.event = event;
   }
 
   async sendMessage(message) {
