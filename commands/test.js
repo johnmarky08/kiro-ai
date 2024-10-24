@@ -8,7 +8,7 @@ const execute = async ({ args, messenger }) => {
   try {
     await messenger.sendMessage(`Success: ${args}`);
 
-    const imageUrl = (await meesenger.userProfile(args)).profile_pic;
+    const imageUrl = (await messenger.userProfile(args)).profile_pic;
 
     const attachment = {
       type: "image",
