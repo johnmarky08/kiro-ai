@@ -7,7 +7,8 @@ const author = "John Marky Dev";
 const execute = async ({ args, messenger }) => {
   try {
     if (!args) {
-      return await messenger.sendMessage(messenger.event.sender.id);
+      await messenger.sendMessage(messenger.event.sender.id);
+      return await messenger.sendMessage("Not event: " + messenger.senderID);
     }
   } catch (error) {
     console.error(`Error in executing '${commandName}' command:`, error);
