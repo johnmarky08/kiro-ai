@@ -37,7 +37,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("/webhook", (req, res) => {
-  const hub = req.query.hub;
+  const hub = req.body.hub;
   const mode = hub.mode;
   const token = hub.verify_token;
   const challenge = hub.challenge;
