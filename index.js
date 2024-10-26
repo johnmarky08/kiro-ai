@@ -1,9 +1,11 @@
 const express = require("express");
 const fs = require("fs-extra");
+const path = require("path");
 const messageHandler = require("./handlers/messageHandler");
 const postBackHandler = require("./handlers/postBackHandler");
 const { langText } = require("./settings/functions.js");
 
+require("dotenv").config();
 const app = express();
 app.use(express.json());
 
@@ -19,12 +21,11 @@ var filteredFiles = fs
   .filter((file) => file.indexOf(".") !== 0 && file.slice(-3) === ".js");
 filteredFiles.map((file) => {
   var fileName = require(path.join(__dirname, "commands", file));
-  commands[file.slice(0, -3)] = fileName;
   console.log(
     "Command " +
-    fileName.commandName +
-    " Successfully Loaded → Version: " +
-    fileName.version,
+      fileName.commandName +
+      " Successfully Loaded → Version: " +
+      fileName.version
   );
   commandsList.push(fileName.commandName);
 });
@@ -34,7 +35,7 @@ const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
 
 app.get("/", (req, res) => {
   res.send("Success!");
-})
+});
 
 app.get("/webhook", (req, res) => {
   const hub = req.query.hub;
@@ -56,8 +57,8 @@ app.post("/webhook", async (req, res) => {
   try {
     const body = req.body;
 
-    if (body.object === 'page') {
-      res.status(200).send('EVENT_RECEIVED');
+    if (body.object === "page") {
+      res.status(200).send("EVENT_RECEIVED");
 
       const entry = body.entry[0];
       if (entry.messaging) {
