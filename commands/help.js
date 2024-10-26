@@ -9,7 +9,7 @@ const execute = async ({ args, messenger }) => {
     const axios = require("axios");
 
     try {
-      var commandInfo = require(`./${args.toLowerCase()}`);
+      var commandInfo = require(`./${args.toLowerCase()}.js`);
       if (!parseInt(args)) {
         var p = commandInfo.permission,
           _perm =
