@@ -11,7 +11,6 @@ module.exports = async (event, pageAccessToken) => {
   if (messageText[0] === global.config.PREFIX) {
     if (messageText === global.config.PREFIX) {
       var gio = moment.tz("Asia/Manila").format("HH:mm:ss || MM/DD/YYYY");
-      await messenger.send(global.commandsList);
       return await messenger.send(
         global.langText("settings", "prefix", global.config.PREFIX, gio)
       );
