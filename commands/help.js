@@ -41,7 +41,7 @@ const execute = async ({ args, messenger }) => {
       var listFile = [];
       global.commandsList.forEach((command) => {
         listFile.push(command);
-      })
+      });
       for (var i = 0; i < listFile.length; i++) {
         listFile[i] = listFile[i][0].toUpperCase() + listFile[i].slice(1);
       }
