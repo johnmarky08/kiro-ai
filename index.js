@@ -22,9 +22,9 @@ filteredFiles.map((file) => {
   var fileName = require(path.join(__dirname, "commands", file));
   console.log(
     "Command " +
-      fileName.commandName +
-      " Successfully Loaded → Version: " +
-      fileName.version
+    fileName.commandName +
+    " Successfully Loaded → Version: " +
+    fileName.version
   );
   global.commandsList.push(fileName.commandName);
 });
@@ -37,10 +37,9 @@ app.get("/", (req, res) => {
 });
 
 app.get("/webhook", (req, res) => {
-  const hub = req.body.hub;
-  const mode = hub.mode;
-  const token = hub.verify_token;
-  const challenge = hub.challenge;
+  const mode = req.query['hub.mode'];
+  const token = req.query['hub.verify_token'];
+  const challenge = req.query['hub.challenge'];
 
   if (mode && token) {
     if (mode === "subscribe" && token === VERIFY_TOKEN) {
