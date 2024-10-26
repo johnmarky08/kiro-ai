@@ -9,11 +9,10 @@ require("dotenv").config();
 const app = express();
 app.use(express.json());
 
-const commandsList = [];
 // Globals
 global.config = require("./config.json");
 global.langText = langText;
-global.commandsList = commandsList;
+global.commandsList = [];
 
 // Load Commands
 var filteredFiles = fs
@@ -27,7 +26,7 @@ filteredFiles.map((file) => {
       " Successfully Loaded → Version: " +
       fileName.version
   );
-  commandsList.push(fileName.commandName);
+  global.commandsList.push(fileName.commandName);
 });
 
 const VERIFY_TOKEN = "pagebot";
