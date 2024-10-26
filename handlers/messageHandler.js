@@ -15,25 +15,25 @@ module.exports = async (event, pageAccessToken) => {
         global.langText("settings", "prefix", global.config.PREFIX, gio)
       );
     }
-  }
 
-  const commandName = messageText.split(" ")[0].slice(1).toLowerCase();
-  const args = messageText.split(" ").slice(1).join(" ") || "";
+    const commandName = messageText.split(" ")[0].slice(1).toLowerCase();
+    const args = messageText.split(" ").slice(1).join(" ") || "";
 
-  if (global.commandsList.includes(commandName)) {
-    try {
-      const commandPath = path.join(commandsPath, commandName);
-      const command = require(commandPath);
+    if (global.commandsList.includes(commandName)) {
+      try {
+        const commandPath = path.join(commandsPath, commandName);
+        const command = require(commandPath);
 
-      if (typeof command.execute === "function") {
-        await command.execute({ args, messenger });
-      } else {
-        await messenger.send("Execute function is not defined!");
+        if (typeof command.execute === "function") {
+          await command.execute({ args, messenger });
+        } else {
+          await messenger.send("Execute function is not defined!");
+        }
+      } catch (err) {
+        await messenger.send("An error occurred while executing the command.");
       }
-    } catch (err) {
-      await messenger.send("An error occurred while executing the command.");
+    } else {
+      await messenger.send(`Command '${commandName}' not found.`);
     }
-  } else {
-    await messenger.send(`Command '${commandName}' not found.`);
   }
 };
