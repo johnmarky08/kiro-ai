@@ -13,9 +13,9 @@ const execute = async ({ args, messenger }) => {
           type: "image",
           payload: {
             url: (await messenger.botProfile()).picture.data.url,
-            is_reusable: true
-          }
-        }
+            is_reusable: true,
+          },
+        },
       });
     }
     await messenger.send(`Success: ${args}`);
@@ -26,8 +26,8 @@ const execute = async ({ args, messenger }) => {
       type: "image",
       payload: {
         url: imageUrl,
-        is_reusable: true
-      }
+        is_reusable: true,
+      },
     };
 
     //NORMAL
@@ -43,12 +43,11 @@ const execute = async ({ args, messenger }) => {
   }
 };
 
-
 module.exports = {
   commandName,
   version,
   permission,
   description,
   author,
-  execute
+  execute,
 };

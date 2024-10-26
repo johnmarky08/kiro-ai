@@ -5,7 +5,6 @@ const description = "List of all commands and its description";
 const author = "John Marky Dev";
 
 const execute = async ({ args, messenger }) => {
-  await messenger.send("help");
   try {
     const axios = require("axios");
 
@@ -14,15 +13,19 @@ const execute = async ({ args, messenger }) => {
       if (!parseInt(args)) {
         var p = commandInfo.permission,
           _perm =
-          p == 1 ?
-          "Admins" :
-          p == 2 ?
-          "On Maintenance" :
-          p == 3 ?
-          "John Marky Dev" :
-          "Everyone";
+            p == 1
+              ? "Admins"
+              : p == 2
+              ? "On Maintenance"
+              : p == 3
+              ? "John Marky Dev"
+              : "Everyone";
         return await messenger.send(
-          `📝 DESCRIPTION OF ${args.toUpperCase()}\n\n» Name: ${commandInfo.commandName}\n» Version: ${commandInfo.version}\n» Description: ${commandInfo.description}\n» Author: ${commandInfo.author}\n» Has Permission: ${_perm}`,
+          `📝 DESCRIPTION OF ${args.toUpperCase()}\n\n» Name: ${
+            commandInfo.commandName
+          }\n» Version: ${commandInfo.version}\n» Description: ${
+            commandInfo.description
+          }\n» Author: ${commandInfo.author}\n» Has Permission: ${_perm}`
         );
       }
     } catch {
@@ -30,7 +33,7 @@ const execute = async ({ args, messenger }) => {
       var one = 10;
       var page = parseInt(args) || 1;
       var res = await axios.get(
-        "https://muichiro-api.vercel.app/facts?api_key=muichiro",
+        "https://muichiro-api.vercel.app/facts?api_key=muichiro"
       );
       var factss = res.data.data;
       let text = "";
@@ -48,27 +51,25 @@ const execute = async ({ args, messenger }) => {
       }
       return await messenger.send(
         `『 LIST OF COMMANDS 』\n\n` +
-        text +
-        "\n[ DYK ]: " +
-        factss +
-        `\n\n➣ Page ` +
-        page +
-        "/" +
-        tpage +
-        `\n\nThere Are Currently A Total Of ` +
-        listFile.length +
-        ` Commands Available In ` +
-        global.config.BOTNAME +
-        ` Bot`,
+          text +
+          "\n[ DYK ]: " +
+          factss +
+          `\n\n➣ Page ` +
+          page +
+          "/" +
+          tpage +
+          `\n\nThere Are Currently A Total Of ` +
+          listFile.length +
+          ` Commands Available In ` +
+          global.config.BOTNAME +
+          ` Bot`
       );
     }
   } catch (error) {
     console.error(`Error in executing '${commandName}' command:`, error);
     await messenger.send("An error occurred while processing your request.");
-    
   }
 };
-
 
 module.exports = {
   commandName,
@@ -76,5 +77,5 @@ module.exports = {
   permission,
   description,
   author,
-  execute
+  execute,
 };

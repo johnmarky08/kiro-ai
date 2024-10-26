@@ -17,12 +17,11 @@ const execute = async ({ args, messenger }) => {
   }
 };
 
-
 module.exports = {
   commandName,
   version,
   permission,
   description,
   author,
-  execute
+  execute,
 };

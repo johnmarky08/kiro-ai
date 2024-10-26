@@ -1,24 +1,23 @@
 const fs = require("fs-extra");
 const path = require("path");
 
-
 const langText = (...args) => {
   try {
     //CREDITS TO MIRAI FOR THIS
     const lang = require(`./lang.json`);
     let result = lang[args[0]][args[1]];
     for (var i = args.length - 1; i > 0; i--) {
-      const regEx = RegExp(`%${i - 1}`, 'g');
+      const regEx = RegExp(`%${i - 1}`, "g");
       result = result.replace(regEx, args[i + 1]);
     }
     return result;
   } catch (e) {
-    console.error(e)
+    console.error(e);
   }
-}
+};
 
 const scanDir = (type, link) => {
-  if (typeof type !== 'string' || typeof link !== 'string') {
+  if (typeof type !== "string" || typeof link !== "string") {
     throw new Error("Both 'type' and 'link' should be strings.");
   }
 
@@ -48,5 +47,5 @@ const scanDir = (type, link) => {
 
 module.exports = {
   langText,
-  scanDir
-}
+  scanDir,
+};

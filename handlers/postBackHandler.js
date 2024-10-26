@@ -7,4 +7,4 @@ module.exports = async (event, pageAccessToken) => {
 
   // Send a message back to the sender
   await messenger.send(`You sent a postback with payload: ${payload}`);
-}
+};

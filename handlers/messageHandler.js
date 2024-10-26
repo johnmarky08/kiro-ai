@@ -3,7 +3,6 @@ const moment = require("moment-timezone");
 const commandsPath = path.join(__dirname, "..", "commands");
 const Messenger = require("../model/messenger");
 
-
 module.exports = async (event, pageAccessToken) => {
   const messageText = event.message.text;
 
@@ -13,13 +12,15 @@ module.exports = async (event, pageAccessToken) => {
     if (messageText === global.config.PREFIX) {
       var gio = moment.tz("Asia/Manila").format("HH:mm:ss || MM/DD/YYYY");
       await messenger.send(global.commandsList);
-      return await messenger.send(global.langText("settings", "prefix", global.config.PREFIX, gio));
+      return await messenger.send(
+        global.langText("settings", "prefix", global.config.PREFIX, gio)
+      );
     }
   }
 
   const commandName = messageText.split(" ")[0].slice(1).toLowerCase();
   const args = messageText.split(" ").slice(1).join(" ") || "";
-  
+
   if (global.commandsList.includes(commandName)) {
     try {
       const commandPath = path.join(commandsPath, commandName);
@@ -36,4 +37,4 @@ module.exports = async (event, pageAccessToken) => {
   } else {
     await messenger.send(`Command '${commandName}' not found.`);
   }
-}
+};
