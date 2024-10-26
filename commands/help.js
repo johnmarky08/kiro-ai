@@ -29,10 +29,10 @@ const execute = async ({ args, messenger }) => {
         );
       }
     } catch {
-      messenger.send("Please Wait... ⚙️");
       var one = 10;
       var page = parseInt(args) || 1;
       if (page < 1) return await messenger.send("No page less than 1!");
+      await messenger.send("Please Wait... ⚙️");
       var res = await axios.get(
         "https://muichiro-api.vercel.app/facts?api_key=muichiro"
       );
