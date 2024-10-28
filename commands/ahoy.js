@@ -63,19 +63,32 @@ const execute = async ({ args, messenger }) => {
     ctx.beginPath();
 
     const imageBuffer = canvas.toBuffer();
+    const base64Image = imageBuffer.toString('base64');
+
+    const response = await axios.post('https://api.imgur.com/3/image', {
+      image: base64Image,
+      type: 'base64'
+    }, {
+      headers: {
+        Authorization: `Client-ID d7d25aaef839c9c`
+      }
+    });
+
+    const imageUrl = response.data.data.link;
 
     return await messenger.send({
       attachment: {
         type: "image",
-        payload: imageBuffer,
+        payload: {
+          url: imageUrl,
+          is_reusable: true,
+        },
       },
     });
   } catch (e) {
     return await messenger.send("Error: " + e.stack);
   }
 };
-
-
 
 
 module.exports = {
