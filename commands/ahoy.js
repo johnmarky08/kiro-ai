@@ -70,7 +70,7 @@ const execute = async ({ args, messenger }) => {
       type: 'base64'
     }, {
       headers: {
-        Authorization: `Client-ID d7d25aaef839c9c`
+        Authorization: `Client-ID ${process.env.IMGUR_CLIENT_ID}`
       }
     });
 
