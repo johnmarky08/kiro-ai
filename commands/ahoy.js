@@ -71,3 +71,12 @@ const execute = async ({ args, messenger }) => {
     return messenger.send("Error: " + e)
   }
 }
+
+module.exports = {
+  commandName,
+  version,
+  permission,
+  description,
+  author,
+  execute,
+};
