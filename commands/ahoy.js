@@ -73,7 +73,7 @@ const execute = async ({ args, messenger }) => {
       },
     });
   } catch (e) {
-    return await messenger.send("Error: " + e);
+    return await messenger.send("Error: " + e.stack);
   }
 };
 
