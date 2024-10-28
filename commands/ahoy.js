@@ -40,7 +40,7 @@ const execute = async ({ args, messenger }) => {
     const axios = require("axios");
     let pathImg = __dirname + '/cache/ahoy.png';
     var text = args;
-    if (!text) return messenger.send(global.langText("commands", "noText"));
+    if (!text) return await messenger.send(global.langText("commands", "noText"));
 
     let _getImg = (await axios.get(`https://i.imgur.com/FofqkNz.jpg`, { responseType: 'arraybuffer' })).data;
     let baseImage = await loadImage(Buffer.from(_getImg, 'utf-8'));
@@ -63,7 +63,7 @@ const execute = async ({ args, messenger }) => {
     ctx.fillText(lines.join('\n'), 45, 135);
     ctx.beginPath();
     const imageBuffer = canvas.toBuffer();
-    return messenger.send({
+    return await messenger.send({
       attachment: {
         type: "image",
         payload: {
@@ -73,7 +73,7 @@ const execute = async ({ args, messenger }) => {
       },
     });
   } catch (e) {
-    return messenger.send("Error: " + e);
+    return await messenger.send("Error: " + e);
   }
 };
 
