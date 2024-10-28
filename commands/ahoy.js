@@ -63,22 +63,18 @@ const execute = async ({ args, messenger }) => {
     ctx.beginPath();
 
     const imageBuffer = canvas.toBuffer();
-    const base64Image = imageBuffer.toString('base64');
-    const dataUri = `data:image/png;base64,${base64Image}`;
 
     return await messenger.send({
       attachment: {
         type: "image",
-        payload: {
-          url: dataUri,
-          is_reusable: true,
-        },
+        payload: imageBuffer,
       },
     });
   } catch (e) {
     return await messenger.send("Error: " + e.stack);
   }
 };
+
 
 
 
