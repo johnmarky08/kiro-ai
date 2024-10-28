@@ -1,7 +1,7 @@
-const commandName = "help";
+const commandName = "ahoy";
 const version = "1.0.0";
 const permission = 0;
-const description = "List of all commands and its description";
+const description = "Ahoy Canvas";
 const author = "John Marky Dev";
 
 const Wrap = (ctx, text, maxWidth) => {
