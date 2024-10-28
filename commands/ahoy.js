@@ -36,10 +36,9 @@ const Wrap = (ctx, text, maxWidth) => {
 const execute = async ({ args, messenger }) => {
   try {
     const { loadImage, createCanvas } = require("canvas");
-    const fs = require("fs-extra");
     const axios = require("axios");
-    let pathImg = __dirname + '/cache/ahoy.png';
-    var text = args;
+
+    let text = args;
     if (!text) return await messenger.send(global.langText("commands", "noText"));
 
     let _getImg = (await axios.get(`https://i.imgur.com/FofqkNz.jpg`, { responseType: 'arraybuffer' })).data;
@@ -62,12 +61,16 @@ const execute = async ({ args, messenger }) => {
     const lines = await Wrap(ctx, text, 450);
     ctx.fillText(lines.join('\n'), 45, 135);
     ctx.beginPath();
+
     const imageBuffer = canvas.toBuffer();
+    const base64Image = imageBuffer.toString('base64');
+    const dataUri = `data:image/png;base64,${base64Image}`;
+
     return await messenger.send({
       attachment: {
         type: "image",
         payload: {
-          url: imageBuffer,
+          url: dataUri,
           is_reusable: true,
         },
       },
@@ -76,6 +79,7 @@ const execute = async ({ args, messenger }) => {
     return await messenger.send("Error: " + e.stack);
   }
 };
+
 
 
 module.exports = {
