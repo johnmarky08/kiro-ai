@@ -29,13 +29,20 @@ class Messenger {
     try {
       const elements = images.map((url) => ({
         image_url: url,
+        buttons: [
+          {
+            type: "web_url",
+            url,
+            title: "View Full Image"
+          }
+        ]
       }));
       const messageData = {
         attachment: {
           type: "template",
           payload: {
             template_type: "generic",
-            elements: elements,
+            elements,
           },
         },
       };
