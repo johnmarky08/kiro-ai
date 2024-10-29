@@ -21,7 +21,7 @@ const execute = async ({ args, messenger }) => {
                 {
                   type: "web_url",
                   url: "https://facebook.com/johnmarky.natividad",
-                  title: "View Facebook >",
+                  title: "View Facebook",
                   webview_height_ratio: "full",
                 },
               ],
