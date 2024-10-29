@@ -7,7 +7,6 @@ const author = "Joshua Sy";
 const execute = async ({ args, messenger }) => {
   try {
     const axios = require("axios");
-    const fs = require("fs-extra");
     var keySearch = args;
 
     if (!keySearch.includes("-")) return await messenger.send(`Please enter in the format, example: ${global.config.PREFIX}pinterest Naruto - 10 (it depends on you how many images you want to appear in the result)`);
@@ -29,3 +28,12 @@ const execute = async ({ args, messenger }) => {
     return await messenger.send("Error: " + e.stack);
   }
 }
+
+module.exports = {
+  commandName,
+  version,
+  permission,
+  description,
+  author,
+  execute,
+};
