@@ -8,6 +8,7 @@ const execute = async ({ args, messenger }) => {
   try {
     const axios = require("axios");
     const neko = (await axios.get("https://nekos.best/api/v2/neko")).data.results[0];
+    console.log(JSON.stringify(neko));
     const attachment = {
       type: "image",
       payload: {
