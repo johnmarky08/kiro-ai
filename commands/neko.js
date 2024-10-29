@@ -26,7 +26,7 @@ const execute = async ({ args, messenger }) => {
         type: "template",
         payload: {
           template_type: "button",
-          text: `Artist: ${neko.artist_name}`,
+          text: `» Artist: ${neko.artist_name} «`,
           buttons: [
             {
               type: "web_url",
