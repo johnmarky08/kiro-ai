@@ -1,5 +1,5 @@
 const commandName = "neko";
-const version = "1.0.0";
+const version = "1.5.6";
 const permission = 0;
 const description = "Random Nekooo 😻";
 const author = "John Marky Dev";
@@ -21,9 +21,28 @@ const execute = async ({ args, messenger }) => {
     };
 
     await messenger.send(attachment);
-
-    const messageText = `Artist: ${neko.artist_name}\nView Artist: ${neko.artist_href}\nView Art: ${neko.source_url}`;
-    await messenger.send({ text: messageText });
+    const messageButtons = {
+      attachment: {
+        type: "template",
+        payload: {
+          template_type: "button",
+          text: `Artist: ${neko.artist_name}`,
+          buttons: [
+            {
+              type: "web_url",
+              title: "View Artist",
+              url: neko.artist_href
+            },
+            {
+              type: "web_url",
+              title: "View Art",
+              url: neko.source_url
+            }
+          ]
+        }
+      }
+    };
+    await messenger.send(messageButtons);
 
   } catch (error) {
     console.error(`Error in executing '${commandName}' command:`, error);
