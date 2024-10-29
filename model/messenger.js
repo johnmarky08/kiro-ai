@@ -4,7 +4,6 @@ const { send } = require("../handlers/sendMessage");
 class Messenger {
   constructor(event, pageAccessToken) {
     this.senderID = event.sender.id;
-    this.messageID = event.message.mid || undefined;
     this.pageAccessToken = pageAccessToken;
     this.event = event;
   }
