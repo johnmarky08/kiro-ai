@@ -50,9 +50,14 @@ const execute = async ({ args, messenger }) => {
     var imageUrl = "";
     if (!args) {
       imageUrl = (await axios.get(BASE_URL + "sfw/waifu")).data.url;
+    } else if (!args.includes("*") && args == "list") {
+      return await messenger.send(`SFW TAGS\n\n${sfwTags.join(", ")}`);
     } else if (!args.includes("*") && sfwTags.includes(args)) {
       imageUrl = (await axios.get(BASE_URL + "sfw/" + args)).data.url;
+    } else if (args.includes("*") && args.replace("*", "") == "list") {
+      return await messenger.send(`NSFW TAGS\n\n${nswfTags.join(", ")}`);
     } else if (args.includes("*") && nswfTags.includes(args.replace("*", ""))) {
+
       imageUrl = (await axios.get(BASE_URL + "nsfw/" + args.replace("*", ""))).data.url;
     } else {
       return await messenger.send("The tags you've given is invalid!");
