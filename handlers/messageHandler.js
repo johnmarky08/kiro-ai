@@ -12,7 +12,7 @@ module.exports = async (event, pageAccessToken) => {
   if (event.message && event.message.quick_reply) {
     const quickReplyPayload = event.message.quick_reply.payload;
 
-    await quickReplies(messenger, quickReplyPayload, args);
+    return await quickReplies(messenger, quickReplyPayload, args);
   } else if (messageText[0] === global.config.PREFIX) {
     if (messageText === global.config.PREFIX) {
       var gio = moment.tz("Asia/Manila").format("HH:mm:ss || MM/DD/YYYY");
@@ -29,12 +29,12 @@ module.exports = async (event, pageAccessToken) => {
 
     if (best.bestMatch.rating > 0.5) {
       try {
-        await runCommand(global.commandsList[best.bestMatchIndex], args, messenger);
+        return await runCommand(global.commandsList[best.bestMatchIndex], args, messenger);
       } catch (err) {
-        await messenger.send("An error occurred while executing the command.");
+        return await messenger.send("An error occurred while executing the command.");
       }
     } else {
-      await messenger.send(
+      return await messenger.send(
         helpQuickReply(
           messenger,
           global.langText("settings", "wrongCommand", global.config.PREFIX)
