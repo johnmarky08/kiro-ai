@@ -51,9 +51,9 @@ const execute = async ({ args, messenger }) => {
     if (!args) {
       imageUrl = (await axios.get(BASE_URL + "sfw/waifu")).data.url;
     } else if (!args.includes("*") && swfTags.includes(args)) {
-      imageUrl = (await axios.get(BASE_URL + "sfw" + args)).data.url;
+      imageUrl = (await axios.get(BASE_URL + "sfw/" + args)).data.url;
     } else if (args.includes("*") && nswfTags.includes(args.replace("*", ""))) {
-      imageUrl = (await axios.get(BASE_URL + "nsfw" + args.replace("*", ""))).data.url;
+      imageUrl = (await axios.get(BASE_URL + "nsfw/" + args.replace("*", ""))).data.url;
     } else {
       return await messenger.send("The tags you've given is invalid!");
     }
