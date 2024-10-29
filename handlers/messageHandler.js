@@ -1,5 +1,6 @@
 const path = require("path");
 const moment = require("moment-timezone");
+const similar = require("string-similarity");
 const commandsPath = path.join(__dirname, "..", "commands");
 const Messenger = require("../model/messenger");
 
@@ -18,10 +19,12 @@ module.exports = async (event, pageAccessToken) => {
 
     const commandName = messageText.split(" ")[0].slice(1).toLowerCase();
     const args = messageText.split(" ").slice(1).join(" ") || "";
+    var best = similar.findBestMatch(commandName, global.commandsList);
+  var bestIndex = best.bestMatchIndex;
 
-    if (global.commandsList.includes(commandName)) {
+    if (best.bestMatch.rating > 0.5) {
       try {
-        const commandPath = path.join(commandsPath, commandName);
+        const commandPath = path.join(commandsPath, global.commandsList[bestIndex]);
         const command = require(commandPath);
 
         if (typeof command.execute === "function") {
