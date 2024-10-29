@@ -34,9 +34,12 @@ const Wrap = (ctx, text, maxWidth) => {
 }
 
 const execute = async ({ args, messenger }) => {
+  const { registerFont, loadImage, createCanvas } = require("canvas");
+  const path = require("path");
+  const axios = require("axios");
+
+  registerFont(path.join(__dirname, '..', 'assets', 'fonts', 'LiberationSans-Regular.ttf'), { family: 'Arial' });
   try {
-    const { loadImage, createCanvas } = require("canvas");
-    const axios = require("axios");
 
     let text = args;
     if (!text) return await messenger.send(global.langText("commands", "noText"));
