@@ -16,7 +16,7 @@ const execute = async ({ args, messenger }) => {
     const res = await axios.get(`https://muichiro-api.vercel.app/pinterest?search=${encodeURIComponent(keySearchs)}&api_key=muichiro`);
     const maxSearch = 10;
 
-    if ((parseInt(numberSearch) > res.data.count) || (parseInt(numberSearch) > maxSearch)) return await messenger.send(`Cannot Search More Than ${(parseInt(numberSearch) > res.data.count ? res.data.count : maxSearch)} Pictures Of ${keySearchs}!`);
+    if ((parseInt(numberSearch) > res.data.count) || (parseInt(numberSearch) > maxSearch)) return await messenger.send(`Cannot Search More Than ${(parseInt(numberSearch) > res.data.count ? res.data.count : maxSearch)} Pictures Of "${keySearchs}"!`);
 
     const data = res.data.data;
     var num = 0;

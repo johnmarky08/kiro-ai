@@ -33,7 +33,7 @@ module.exports = async (event, pageAccessToken) => {
         await messenger.send("An error occurred while executing the command.");
       }
     } else {
-      await messenger.send(`Command '${commandName}' not found.`);
+      await messenger.send(global.langText("settings", "wrongCommand", global.config.PREFIX));
     }
   }
 };
