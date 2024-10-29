@@ -22,12 +22,12 @@ const execute = async ({ args, messenger }) => {
                   type: "web_url",
                   url: "https://facebook.com/johnmarky.natividad",
                   title: "View Facebook >",
+                  subtitle: `Owner of ${global.config.BOTNAME} AI\n\n» ${owner.first_name} Senpai «`,
                   webview_height_ratio: "full",
-                  },
-                ],
-              subtitle: `Owner of ${global.config.BOTNAME} AI\n\n» ${owner.first_name} Senpai «`,
-              },
-            ],
+                },
+              ],
+            }
+          ],
         }
       },
     };
