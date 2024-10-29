@@ -45,7 +45,7 @@ const helpPostBack = (message) => {
         buttons: [
           {
             type: "postback",
-            title: `${global.config.BOTNAME}help`,
+            title: `${global.config.PREFIX}help`,
             payload: "HELP_COMMAND"
             }
           ]
