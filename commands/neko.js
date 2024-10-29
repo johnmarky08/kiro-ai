@@ -11,7 +11,7 @@ const execute = async ({ args, messenger }) => {
     const attachment = {
       type: "image",
       payload: {
-        url: neko.url,
+        url: encodeURIComponent(neko.url),
         is_reusable: true,
       },
     };
