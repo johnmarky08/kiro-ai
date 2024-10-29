@@ -9,16 +9,7 @@ const execute = async ({ args, messenger }) => {
     const axios = require("axios");
 
     const neko = (await axios.get("https://nekos.best/api/v2/neko")).data.results[0];
-    const imageUrl = neko.url;
-
-    const headResponse = await axios.head(imageUrl);
-    const contentLength = headResponse.headers["content-length"];
-
-    const imageSizeMB = parseInt(contentLength, 10) / (1024 * 1024);
-    if (imageSizeMB > 25) {
-      await messenger.send({ text: "The image is too large to send via Messenger (over 25 MB)." });
-      return;
-    }
+    const imageUrl = (await axios.get("https://muichiro-api.vercel.app/imgur?link=" + neko.url)).data.result;
 
     const attachment = {
       attachment: {
