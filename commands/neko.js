@@ -7,20 +7,37 @@ const author = "John Marky Dev";
 const execute = async ({ args, messenger }) => {
   try {
     const axios = require("axios");
+
     const neko = (await axios.get("https://nekos.best/api/v2/neko")).data.results[0];
-    console.log(JSON.stringify(neko));
+    const imageUrl = neko.url;
+
+    const headResponse = await axios.head(imageUrl);
+    const contentLength = headResponse.headers["content-length"];
+
+    const imageSizeMB = parseInt(contentLength, 10) / (1024 * 1024);
+    if (imageSizeMB > 25) {
+      await messenger.send({ text: "The image is too large to send via Messenger (over 25 MB)." });
+      return;
+    }
+
     const attachment = {
-      type: "image",
-      payload: {
-        url: neko.url,
-        is_reusable: true,
-      },
+      attachment: {
+        type: "image",
+        payload: {
+          url: imageUrl,
+          is_reusable: true,
+        },
+      }
     };
-    await messenger.send({ attachment });
-    return await messenger.send(`Artist: ${neko.artist_name}\nView Artist: ${neko.artist_href}\nView Art: ${neko.source_url}`);
+
+    await messenger.send(attachment);
+
+    const messageText = `Artist: ${neko.artist_name}\nView Artist: ${neko.artist_href}\nView Art: ${neko.source_url}`;
+    await messenger.send({ text: messageText });
+
   } catch (error) {
     console.error(`Error in executing '${commandName}' command:`, error);
-    await messenger.send("An error occurred while processing your request.");
+    await messenger.send({ text: "An error occurred while processing your request." });
   }
 };
 
