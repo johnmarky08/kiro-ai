@@ -9,7 +9,7 @@ const execute = async ({ args, messenger }) => {
     const axios = require("axios");
 
     const neko = (await axios.get("https://nekos.best/api/v2/neko")).data.results[0];
-    const imageUrl = (await axios.get("https://muichiro-api.vercel.app/imgur?link=" + neko.url)).data.result;
+    const imageUrl = (await axios.get("https://muichiro-api.vercel.app/imgur?api_key=muichiro&link=" + neko.url)).data.result;
 
     const attachment = {
       attachment: {
