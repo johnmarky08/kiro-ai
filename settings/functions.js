@@ -45,7 +45,19 @@ const scanDir = (type, link) => {
   return arr;
 };
 
+const runCommand = async (commandName, args, messenger) => {
+  const commandPath = path.join(commandsPath, commandName);
+  const command = require(commandPath);
+
+  if (typeof command.execute === "function") {
+    await command.execute({ args, messenger });
+  } else {
+    await messenger.send("Execute function is not defined!");
+  }
+}
+
 module.exports = {
   langText,
   scanDir,
+  runCommand
 };

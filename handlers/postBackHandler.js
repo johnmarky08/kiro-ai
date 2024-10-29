@@ -1,10 +1,13 @@
 const Messenger = require("../model/messenger");
+const { runCommand } = require("../settings/functions");
 
 module.exports = async (event, pageAccessToken) => {
   const messenger = new Messenger(event, pageAccessToken);
-  const senderId = event.sender.id;
+  const messageText = event.message.text;
+  const args = messageText.split(" ").slice(1).join(" ") || "";
   const payload = event.postback.payload;
 
-  // Send a message back to the sender
-  await messenger.send(`You sent a postback with payload: ${payload}`);
+  if (payload == "HELP_COMMAND") {
+    await runCommand("help", args, messenger);
+  }
 };
