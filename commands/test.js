@@ -33,10 +33,6 @@ const execute = async ({ args, messenger }) => {
     //NORMAL
     await messenger.send(`Sending with photo`);
     await messenger.send({ attachment });
-
-    //REPLY BUT STILL LOOKS NORMAL
-    await messenger.reply(`Replying with photo`);
-    await messenger.reply({ attachment });
   } catch (error) {
     console.error(`Error in executing '${commandName}' command:`, error);
     await messenger.send("An error occurred while processing your request.");

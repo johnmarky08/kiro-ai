@@ -1,5 +1,5 @@
 const axios = require("axios");
-const { send, reply } = require("../handlers/sendMessage");
+const { send } = require("../handlers/sendMessage");
 
 class Messenger {
   constructor(event, pageAccessToken) {
@@ -15,8 +15,7 @@ class Messenger {
         return await send(this.senderID, message, this.pageAccessToken);
       } else if (typeof message === "string") {
         return await send(
-          this.senderID,
-          { text: message },
+          this.senderID, { text: message },
           this.pageAccessToken
         );
       }
@@ -26,23 +25,22 @@ class Messenger {
     }
   }
 
-  async reply(message) {
+  async sendImages(images) {
     try {
-      if (typeof message === "object") {
-        return await reply(
-          this.senderID,
-          message,
-          this.messageID,
-          this.pageAccessToken
-        );
-      } else if (typeof message === "string") {
-        return await reply(
-          this.senderID,
-          { text: message },
-          this.messageID,
-          this.pageAccessToken
-        );
-      }
+      const elements = images.map((url) => ({
+        image_url: url,
+      }));
+      const messageData = {
+        attachment: {
+          type: "template",
+          payload: {
+            template_type: "generic",
+            elements: elements,
+          },
+        },
+      };
+
+      return await send(this.senderID, messageData, this.pageAccessToken);
     } catch (error) {
       console.error("Failed to send message:", error);
       throw error;
@@ -56,8 +54,7 @@ class Messenger {
         {
           params: {
             access_token: this.pageAccessToken,
-            fields:
-              "id,first_name,name,profile_pic,birthday,email,gender,link,location",
+            fields: "id,first_name,name,profile_pic,birthday,email,gender,link,location",
           },
         }
       );
@@ -73,8 +70,7 @@ class Messenger {
       const response = await axios.get(`https://graph.facebook.com/v21.0/me`, {
         params: {
           access_token: this.pageAccessToken,
-          fields:
-            "id,name,about,picture,current_location,emails,followers_count,cover,fan_count,website",
+          fields: "id,name,about,picture,current_location,emails,followers_count,cover,fan_count,website",
         },
       });
       return response.data;
