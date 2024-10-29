@@ -23,7 +23,7 @@ module.exports = async (event, pageAccessToken) => {
 
     if (best.bestMatch.rating > 0.5) {
       try {
-        return await runCommand(global.commandsList[best.bestMatchIndex], args, messenger);
+        return await runCommand(global.commandsList[best.bestMatchIndex], messenger, args);
       } catch (err) {
         return await messenger.send("An error occurred while executing the command.");
       }

@@ -45,7 +45,7 @@ const scanDir = (type, link) => {
   return arr;
 };
 
-const runCommand = async (commandName, args, messenger) => {
+const runCommand = async (commandName, messenger, args) => {
   const commandPath = path.join(commandsPath, commandName);
   const command = require(commandPath);
 
