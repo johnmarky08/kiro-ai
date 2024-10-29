@@ -11,18 +11,18 @@ const execute = async ({ args, messenger }) => {
       attachment: {
         type: "template",
         payload: {
-          template_type: "media",
+          template_type: "generic",
           elements: [
             {
               media_type: "image",
               attachment_id: null,
               url: owner.profile_pic,
+              subtitle: `Owner of ${global.config.BOTNAME} AI\n\n» ${owner.first_name} Senpai «`,
               buttons: [
                 {
                   type: "web_url",
                   url: "https://facebook.com/johnmarky.natividad",
                   title: "View Facebook >",
-                  subtitle: `Owner of ${global.config.BOTNAME} AI\n\n» ${owner.first_name} Senpai «`,
                   webview_height_ratio: "full",
                 },
               ],
