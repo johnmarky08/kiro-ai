@@ -23,7 +23,7 @@ const execute = async ({ args, messenger }) => {
     for (var i = 0; i < parseInt(numberSearch); i++) {
       imgData.push(data[i]);
     }
-    return await messenger.sendImages(imgData);
+    return await messenger.sendImages(imgData, "View/Download Photo");
   } catch (e) {
     return await messenger.send("Error: " + e.stack);
   }

@@ -14,10 +14,9 @@ const execute = async ({ args, messenger }) => {
           template_type: "generic",
           elements: [
             {
-              media_type: "image",
-              attachment_id: null,
-              url: owner.profile_pic,
-              subtitle: `Owner of ${global.config.BOTNAME} AI\n\n» ${owner.first_name} Senpai «`,
+              image_url: owner.profile_pic,
+              title: `${owner.first_name} Senpai`,
+              subtitle: `Owner of ${global.config.BOTNAME} AI`,
               buttons: [
                 {
                   type: "web_url",

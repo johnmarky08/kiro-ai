@@ -25,7 +25,7 @@ class Messenger {
     }
   }
 
-  async sendImages(images) {
+  async sendImages(images, title) {
     try {
       const elements = images.map((url) => ({
         image_url: url,
@@ -33,7 +33,8 @@ class Messenger {
           {
             type: "web_url",
             url,
-            title: "View Full Image"
+            title,
+            webview_height_ratio: "full",
           }
         ]
       }));
