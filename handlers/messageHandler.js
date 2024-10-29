@@ -11,7 +11,7 @@ module.exports = async (event, pageAccessToken) => {
 
   if (messageText[0] === global.config.PREFIX) {
     if (messageText === global.config.PREFIX) {
-      var gio = moment.tz("Asia/Manila").format("HH:mm:ss || MM/DD/YYYY");
+      var gio = moment.tz("Asia/Manila").format("hh:mm:ss A || MM/DD/YYYY");
       return await messenger.send(
         helpPostBack(global.langText("settings", "prefix", global.config.PREFIX, gio))
       );
