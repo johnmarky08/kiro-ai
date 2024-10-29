@@ -25,7 +25,6 @@ const execute = async ({ args, messenger }) => {
         type: "image",
         payload: {
           url: imageUrl,
-          is_reusable: true,
         },
       }
     };
