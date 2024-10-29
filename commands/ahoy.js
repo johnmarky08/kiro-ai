@@ -43,6 +43,8 @@ const execute = async ({ args, messenger }) => {
 
     let text = args;
     if (!text) return await messenger.send(global.langText("commands", "noText"));
+    
+    await messenger.send("⏱️ Creating Image, Please Wait...");
 
     let _getImg = (await axios.get(`https://i.imgur.com/FofqkNz.jpg`, { responseType: 'arraybuffer' })).data;
     let baseImage = await loadImage(Buffer.from(_getImg, 'utf-8'));
