@@ -50,7 +50,7 @@ const execute = async ({ args, messenger }) => {
     var imageUrl = "";
     if (!args) {
       imageUrl = (await axios.get(BASE_URL + "sfw/waifu")).data.url;
-    } else if (!args.includes("*") && swfTags.includes(args)) {
+    } else if (!args.includes("*") && sfwTags.includes(args)) {
       imageUrl = (await axios.get(BASE_URL + "sfw/" + args)).data.url;
     } else if (args.includes("*") && nswfTags.includes(args.replace("*", ""))) {
       imageUrl = (await axios.get(BASE_URL + "nsfw/" + args.replace("*", ""))).data.url;
