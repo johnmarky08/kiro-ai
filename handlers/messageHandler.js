@@ -1,7 +1,6 @@
 const path = require("path");
 const moment = require("moment-timezone");
 const similar = require("string-similarity");
-const commandsPath = path.join(__dirname, "..", "commands");
 const { runCommand } = require("../settings/functions");
 const Messenger = require("../model/messenger");
 

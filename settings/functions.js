@@ -46,6 +46,7 @@ const scanDir = (type, link) => {
 };
 
 const runCommand = async (commandName, messenger, args) => {
+  const commandsPath = path.join(__dirname, "..", "commands");
   const commandPath = path.join(commandsPath, commandName);
   const command = require(commandPath);
 
