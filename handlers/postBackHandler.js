@@ -1,8 +1,11 @@
 const Messenger = require('../model/messenger');
-const { runCommand } = require('../settings/functions');
+const { runCommand, checkIfBot } = require('../settings/functions');
 
 module.exports = async (event, pageAccessToken) => {
   const messenger = new Messenger(event, pageAccessToken);
+  
+  await checkIfBot();
+  
   const payload = event.postback.payload;
   const commands = {
     'HELP_COMMAND': 'help'

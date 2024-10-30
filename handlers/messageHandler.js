@@ -1,13 +1,15 @@
 const path = require('path');
 const moment = require('moment-timezone');
 const similar = require('string-similarity');
-const { runCommand } = require('../settings/functions');
+const { runCommand, checkIfBot } = require('../settings/functions');
 const Messenger = require('../model/messenger');
 
 module.exports = async (event, pageAccessToken) => {
   const messageText = event.message.text;
   const userMessage = messageText.split(' ').slice(1).join(' ') || '';
   const messenger = new Messenger(event, pageAccessToken);
+  
+  await checkIfBot();
 
   if (messageText[0] === global.config.prefix) {
     if (messageText === global.config.prefix) {

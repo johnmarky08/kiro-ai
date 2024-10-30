@@ -69,8 +69,16 @@ const runCommand = async (commandName, messenger, userMessage) => {
   }
 }
 
+const checkIfBot = async (messenger) => {
+  if ((await messenger.botProfile()).id == messenger.senderId) {
+    console.log("BOT!!")
+    return;
+  }
+}
+
 module.exports = {
   language,
   scanDirectory,
-  runCommand
+  runCommand,
+  checkIfBot
 };
