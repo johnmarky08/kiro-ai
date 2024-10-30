@@ -18,7 +18,7 @@ const language = (...userMessage) => {
 
 const scanDirectory = (type, link) => {
   if (typeof type !== 'string' || typeof link !== 'string') {
-    throw new Error('Both 'type' and 'link' should be strings.');
+    throw new Error('Both \'type\' and \'link\' should be strings.');
   }
 
   let directoryFile;
