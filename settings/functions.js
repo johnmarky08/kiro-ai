@@ -53,7 +53,7 @@ const runCommand = async (commandName, messenger, userMessage) => {
   switch (command.permission) {
     case 1: {
       if (!global.config.administrator.includes(messenger.senderId)) {
-        return await messenger.send(global.language());
+        return await messenger.send(global.language('settings', 'adminOnly'));
       }
       else break;
     }
