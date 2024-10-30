@@ -1,5 +1,7 @@
 {
   "botName": "Kiro",
   "prefix": "/",
-  "admin": [100011316816555]
+  "administrator": [
+    "100011316816555"
+  ]
 }

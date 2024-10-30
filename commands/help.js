@@ -11,15 +11,12 @@ const execute = async ({ userMessage, messenger }) => {
     try {
       var commandInfo = require(`./${userMessage.toLowerCase()}.js`);
       if (!parseInt(userMessage)) {
-        var p = commandInfo.permission,
-          _perm =
-          p == 1 ?
-          'Admins' :
-          p == 2 ?
-          'On Maintenance' :
-          p == 3 ?
-          'John Marky Dev' :
-          'Everyone';
+        var p = commandInfo.permission;
+        var _perm = p == 1
+        ? 'Administrators'
+        : p == 2
+        ? 'On Maintenance'
+        : 'Everyone';
         return await messenger.send(
           `📝 DESCRIPTION OF ${userMessage.toUpperCase()}\n\n» Name: ${
             commandInfo.commandName

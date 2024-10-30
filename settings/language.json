@@ -3,7 +3,7 @@
     "prefix": "Yo! I'm Here, What Can I Do For You?\nUse %0help For List Of Commands\n[ %1 ]",
     "wrongCommand": "Oops! The Command You Just Entered Does Not Exist. Try %0help For List Of Commands.",
     "adminOnly": "You Don't Have Permission To Use This Command!",
-    "mainte": "This Command Is Still Being Created By The Developers Or Is Under Maintenance!"
+    "maintenance": "This Command Is Still Being Created By The Developers Or Is Under Maintenance!"
   },
   "commands": {
     "noText": "Put Some Text First!",

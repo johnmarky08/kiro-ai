@@ -1,6 +1,6 @@
-const commandName = 'test';
+const commandName = 'test2';
 const version = '1.0.0';
-const permission = 1;
+const permission = 2;
 const description = 'For testing purposes';
 const author = 'John Marky Dev';
 
