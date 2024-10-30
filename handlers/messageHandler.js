@@ -9,7 +9,7 @@ module.exports = async (event, pageAccessToken) => {
   const userMessage = messageText.split(' ').slice(1).join(' ') || '';
   const messenger = new Messenger(event, pageAccessToken);
   
-  await checkIfBot();
+  await checkIfBot(messenger);
 
   if (messageText[0] === global.config.prefix) {
     if (messageText === global.config.prefix) {
