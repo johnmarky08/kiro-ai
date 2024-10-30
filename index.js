@@ -61,7 +61,6 @@ app.post('/webhook', async (request, response) => {
       const entry = body.entry[0];
       if (entry.messaging) {
         const event = entry.messaging[0];
-        if (event.)
         
         if (event.message) {
           await messageHandler(event, PAGE_ACCESS_TOKEN);
