@@ -9,6 +9,6 @@
     "noText": "Put Some Text First!",
     "noReply": "Reply To An Image First!",
     "noLink": "Put A Link First!",
-    "err": "Something Went Wrong!\n\nError: %0"
+    "error": "Something Went Wrong!\n\nError: %0"
   }
 }

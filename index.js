@@ -1,62 +1,62 @@
-const express = require("express");
-const fs = require("fs-extra");
-const path = require("path");
-const messageHandler = require("./handlers/messageHandler");
-const postBackHandler = require("./handlers/postBackHandler");
-const { langText } = require("./settings/functions.js");
+const express = require('express');
+const fs = require('fs-extra');
+const path = require('path');
+const messageHandler = require('./handlers/messageHandler');
+const postBackHandler = require('./handlers/postBackHandler');
+const { language } = require('./settings/functions.js');
 
-require("dotenv").config();
+require('dotenv').config();
 const app = express();
 app.use(express.json());
 
 // Globals
-global.config = require("./config.json");
-global.langText = langText;
+global.config = require('./config.json');
+global.language = language;
 global.commandsList = [];
 
 // Load Commands
 var filteredFiles = fs
-  .readdirSync("./commands/")
-  .filter((file) => file.indexOf(".") !== 0 && file.slice(-3) === ".js");
+  .readdirSync('./commands/')
+  .filter((file) => file.indexOf('.') !== 0 && file.slice(-3) === '.js');
 filteredFiles.map((file) => {
-  var fileName = require(path.join(__dirname, "commands", file));
+  var fileName = require(path.join(__dirname, 'commands', file));
   console.log(
-    "Command " +
+    'Command ' +
     fileName.commandName +
-    " Successfully Loaded → Version: " +
+    ' Successfully Loaded → Version: ' +
     fileName.version
   );
   global.commandsList.push(fileName.commandName);
 });
 
-const VERIFY_TOKEN = "pagebot";
+const VERIFY_TOKEN = 'pagebot';
 const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
 
-app.get("/", (req, res) => {
-  res.send("Success!");
+app.get('/', (request, response) => {
+  response.send('Success!');
 });
 
-app.get("/webhook", (req, res) => {
-  const mode = req.query['hub.mode'];
-  const token = req.query['hub.verify_token'];
-  const challenge = req.query['hub.challenge'];
+app.get('/webhook', (request, response) => {
+  const mode = request.query['hub.mode'];
+  const token = request.query['hub.verify_token'];
+  const challenge = request.query['hub.challenge'];
 
   if (mode && token) {
-    if (mode === "subscribe" && token === VERIFY_TOKEN) {
-      console.log("WEBHOOK_VERIFIED");
-      res.status(200).send(challenge);
+    if (mode === 'subscribe' && token === VERIFY_TOKEN) {
+      console.log('WEBHOOK_VERIFIED');
+      response.status(200).send(challenge);
     } else {
-      res.sendStatus(403);
+      response.sendStatus(403);
     }
   }
 });
 
-app.post("/webhook", async (req, res) => {
+app.post('/webhook', async (request, response) => {
   try {
-    const body = req.body;
+    const body = request.body;
 
-    if (body.object === "page") {
-      res.status(200).send("EVENT_RECEIVED");
+    if (body.object === 'page') {
+      response.status(200).send('EVENT_RECEIVED');
 
       const entry = body.entry[0];
       if (entry.messaging) {
@@ -68,17 +68,17 @@ app.post("/webhook", async (req, res) => {
         }
       }
     } else {
-      res.sendStatus(404);
+      response.sendStatus(404);
     }
   } catch (error) {
-    console.error("Error processing webhook:", error);
-    res.sendStatus(500);
+    console.error('Error processing webhook:', error);
+    response.sendStatus(500);
   }
 });
 
-app.use((err, req, res, next) => {
-  console.error("Error occurred:", err.stack);
-  res.status(500).send("Internal Server Error");
+app.use((error, request, response, next) => {
+  console.error('Error occurred:', error.stack);
+  response.status(500).send('Internal Server Error');
 });
 
 const PORT = process.env.PORT || 3000;

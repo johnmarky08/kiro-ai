@@ -1,5 +1,5 @@
 {
-  "BOTNAME": "Kiro",
-  "PREFIX": "/",
+  "botName": "Kiro",
+  "prefix": "/",
   "admin": [100011316816555]
 }

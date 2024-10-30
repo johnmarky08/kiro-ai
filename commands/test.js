@@ -1,16 +1,16 @@
-const commandName = "test";
-const version = "1.0.0";
-const permission = 0;
-const description = "For testing purposes";
-const author = "John Marky Dev";
+const commandName = 'test';
+const version = '1.0.0';
+const permission = 3;
+const description = 'For testing purposes';
+const author = 'John Marky Dev';
 
-const execute = async ({ args, messenger }) => {
+const execute = async ({ userMessage, messenger }) => {
   try {
-    if (!args) {
+    if (!userMessage) {
       await messenger.send((await messenger.botProfile()).id);
       return await messenger.send({
         attachment: {
-          type: "image",
+          type: 'image',
           payload: {
             url: (await messenger.botProfile()).picture.data.url,
             is_reusable: true,
@@ -18,12 +18,12 @@ const execute = async ({ args, messenger }) => {
         },
       });
     }
-    await messenger.send(`Success: ${args}`);
+    await messenger.send(`Success: ${userMessage}`);
 
-    const imageUrl = (await messenger.userProfile(args)).profile_pic;
+    const imageUrl = (await messenger.userProfile(userMessage)).profile_pic;
 
     const attachment = {
-      type: "image",
+      type: 'image',
       payload: {
         url: imageUrl,
         is_reusable: true,
@@ -35,7 +35,7 @@ const execute = async ({ args, messenger }) => {
     await messenger.send({ attachment });
   } catch (error) {
     console.error(`Error in executing '${commandName}' command:`, error);
-    await messenger.send("An error occurred while processing your request.");
+    await messenger.send('An error occurred while processing your request.');
   }
 };
 

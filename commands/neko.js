@@ -1,19 +1,19 @@
-const commandName = "neko";
-const version = "1.5.6";
+const commandName = 'neko';
+const version = '1.5.6';
 const permission = 0;
-const description = "Random Nekooo 😻";
-const author = "John Marky Dev";
+const description = 'Random Nekooo 😻';
+const author = 'John Marky Dev';
 
-const execute = async ({ args, messenger }) => {
+const execute = async ({ userMessage, messenger }) => {
   try {
-    const axios = require("axios");
+    const axios = require('axios');
 
-    const neko = (await axios.get("https://nekos.best/api/v2/neko")).data.results[0];
-    const imageUrl = (await axios.get("https://muichiro-api.vercel.app/imgur?api_key=muichiro&link=" + neko.url)).data.result;
+    const neko = (await axios.get('https://nekos.best/api/v2/neko')).data.results[0];
+    const imageUrl = (await axios.get('https://muichiro-api.vercel.app/imgur?api_key=muichiro&link=' + neko.url)).data.result;
 
     const attachment = {
       attachment: {
-        type: "image",
+        type: 'image',
         payload: {
           url: imageUrl,
         },
@@ -23,19 +23,19 @@ const execute = async ({ args, messenger }) => {
     await messenger.send(attachment);
     const messageButtons = {
       attachment: {
-        type: "template",
+        type: 'template',
         payload: {
-          template_type: "button",
+          template_type: 'button',
           text: `RANDOM NEKO ANIME PIC\n\n» Artist: ${neko.artist_name} «`,
           buttons: [
             {
-              type: "web_url",
-              title: "View Artist",
+              type: 'web_url',
+              title: 'View Artist',
               url: neko.artist_href
             },
             {
-              type: "web_url",
-              title: "View Art",
+              type: 'web_url',
+              title: 'View Art',
               url: neko.source_url
             }
           ]
@@ -46,7 +46,7 @@ const execute = async ({ args, messenger }) => {
 
   } catch (error) {
     console.error(`Error in executing '${commandName}' command:`, error);
-    await messenger.send({ text: "An error occurred while processing your request." });
+    await messenger.send({ text: 'An error occurred while processing your request.' });
   }
 };
 

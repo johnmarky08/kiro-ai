@@ -1,19 +1,19 @@
-const commandName = "uid";
-const version = "1.0.0";
+const commandName = 'uid';
+const version = '1.0.0';
 const permission = 0;
-const description = "Find your UID";
-const author = "John Marky Dev";
+const description = 'Find your UID';
+const author = 'John Marky Dev';
 
-const execute = async ({ args, messenger }) => {
+const execute = async ({ userMessage, messenger }) => {
   try {
-    if (args == "bot") {
+    if (userMessage == 'bot') {
       return await messenger.send((await messenger.botProfile()).id);
     }
 
-    return await messenger.send(messenger.senderID);
+    return await messenger.send(messenger.senderId);
   } catch (error) {
     console.error(`Error in executing '${commandName}' command:`, error);
-    await messenger.send("An error occurred while processing your request.");
+    await messenger.send('An error occurred while processing your request.');
   }
 };
 
