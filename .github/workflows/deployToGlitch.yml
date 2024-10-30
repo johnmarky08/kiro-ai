@@ -18,4 +18,4 @@ jobs:
           GLITCH_TOKEN: ${{ secrets.GLITCH_TOKEN }}
         run: |
           curl -X POST "https://api.glitch.com/project/${GLITCH_PROJECT}/git/import/github" \
-          -H "Authorization: Bearer ${GLITCH_TOKEN}"
+          -H "Authorization: ${GLITCH_TOKEN}"
