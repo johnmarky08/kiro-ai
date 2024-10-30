@@ -33,7 +33,7 @@ const VERIFY_TOKEN = 'pagebot';
 const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
 
 app.get('/', (request, response) => {
-  response.send('Success! :p');
+  response.send('Success! :O');
 });
 
 app.get('/webhook', (request, response) => {
