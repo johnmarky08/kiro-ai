@@ -1,0 +1,21 @@
+name: Deploy to Glitch
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Deploy to Glitch
+        env:
+          GLITCH_PROJECT: kiro-ai
+          GLITCH_TOKEN: ${{ secrets.GLITCH_TOKEN }}
+        run: |
+          curl -X POST "https://api.glitch.com/project/${GLITCH_PROJECT}/git/import/github" \
+          -H "Authorization: Bearer ${GLITCH_TOKEN}"
