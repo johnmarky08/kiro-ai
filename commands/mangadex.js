@@ -22,7 +22,7 @@ const execute = async ({ userMessage, messenger }) => {
       }
     };
     
-    const text = `MANGADEX INFO\n\nTitle: ${data.title}\nSynopsis: ${data.description}\nType: ${firstLetterUpperCase(data.type)}\nStatus: ${firstLetterUpperCase(data.status)}\nYear: ${data.year}\nCreator: ${data.creator ? data.creator : 'Unknown'}\nAuthors: ${data.authors.join(', ')}\nArtists: ${data.artists.join(', ')}\n\nGenres: ${data.tags.genres.join(', ')}\nThemes: ${data.tags.themes.join(', ')}\nFormats: ${data.tags.formats.join(', ')}`;
+    const text = `MANGADEX INFO\n\nTitle: ${data.title}\nType: ${firstLetterUpperCase(data.type)}\nStatus: ${firstLetterUpperCase(data.status)}\nYear: ${data.year}\nCreator: ${data.creator ? data.creator : 'Unknown'}\nAuthors: ${data.authors.join(', ')}\nArtists: ${data.artists.join(', ')}\n\nGenres: ${data.tags.genres.join(', ')}\nThemes: ${data.tags.themes.join(', ')}\nFormats: ${data.tags.formats.join(', ')}`;
 
     const messageButtons = {
       attachment: {
@@ -41,6 +41,7 @@ const execute = async ({ userMessage, messenger }) => {
       }
     };
     await messenger.send(messageButtons);
+    await messenger.send(`Synopsis: ${data.description}`);
     await messenger.send(attachment);
     
   } catch (error) {
