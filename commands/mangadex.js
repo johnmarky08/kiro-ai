@@ -41,7 +41,7 @@ const execute = async ({ userMessage, messenger }) => {
       }
     };
     await messenger.send(messageButtons);
-    await messenger.send(`Synopsis: ${data.description}`);
+    await messenger.send(`Synopsis:\n\n${data.description}`);
     await messenger.send(attachment);
     
   } catch (error) {
