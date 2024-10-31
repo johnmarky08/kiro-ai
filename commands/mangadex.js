@@ -9,7 +9,7 @@ const execute = async ({ userMessage, messenger }) => {
     if (!userMessage) return await messenger.send(global.language('commands', 'noText'));
     
     const axios = require('axios');
-    const response = await axios.get(`https://muichiro-api.vercel.app/mangadex?&api_key=muichiro&search=${userMessage}`);
+    const response = await axios.get(`https://muichiro-api.vercel.app/mangadex?&api_key=muichiro&search=${encodeURIComponent(userMessage)}`);
     const data = response.data.result;
     const firstLetterUpperCase = (word) => word[0].toUpperCase() + word.slice(1);
 
