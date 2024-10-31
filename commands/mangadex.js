@@ -7,7 +7,7 @@ const author = 'John Marky Dev';
 const execute = async ({ userMessage, messenger }) => {
   try {
     if (!userMessage) return await messenger.send(global.language('commands', 'noText'));
-    
+
     const axios = require('axios');
     const response = await axios.get(`https://muichiro-api.vercel.app/mangadex?&api_key=muichiro&search=${encodeURIComponent(userMessage)}`);
     const data = response.data.result;
@@ -21,7 +21,7 @@ const execute = async ({ userMessage, messenger }) => {
         },
       }
     };
-    
+
     const text = `MANGADEX INFO\n\nTitle: ${data.title}\nType: ${firstLetterUpperCase(data.type)}\nStatus: ${firstLetterUpperCase(data.status)}\nYear: ${data.year}\nCreator: ${data.creator ? data.creator : 'Unknown'}\nAuthors: ${data.authors.join(', ')}\nArtists: ${data.artists.join(', ')}\n\nGenres: ${data.tags.genres.join(', ')}\n\nThemes: ${data.tags.themes.join(', ')}\n\nFormats: ${data.tags.formats.join(', ')}`;
 
     const messageButtons = {
@@ -41,12 +41,14 @@ const execute = async ({ userMessage, messenger }) => {
       }
     };
     await messenger.send(messageButtons);
-    
-    if ((data.description.length > 0) && (data.description.length <= 2000)) await messenger.send(`Synopsis:\n\n${data.description}`);
-    else await messenger.send("Synopsis is too long or undefined.")
-    
+
+    if (data.description) {
+      if ((data.description.length > 0) && (data.description.length <= 2000)) await messenger.send(`Synopsis:\n\n${data.description}`);
+      else await messenger.send("Synopsis is too long.");
+    }
+
     await messenger.send(attachment);
-    
+
   } catch (error) {
     console.error(`Error in executing '${commandName}' command:`, error);
     await messenger.send({ text: 'An error occurred while processing your request.' });
