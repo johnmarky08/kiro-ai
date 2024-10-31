@@ -1,0 +1,59 @@
+const commandName = 'mangadex';
+const version = '2.3.1';
+const permission = 0;
+const description = 'Get manga info via MangaDex';
+const author = 'John Marky Dev';
+
+const execute = async ({ userMessage, messenger }) => {
+  try {
+    if (!userMessage) return await messenger.send(global.language('commands', 'noText'));
+    
+    const axios = require('axios');
+    const response = await axios.get(`https://muichiro-api.vercel.app/mangadex?&api_key=muichiro&search=${userMessage}`);
+    const data = response.data.result;
+    const firstLetterUpperCase = (data) => data[0].toUpperCase() + data.slice(1);
+
+    const attachment = {
+      attachment: {
+        type: 'image',
+        payload: {
+          url: data.cover,
+        },
+      }
+    };
+    
+    const text = `MANGADEX INFO\n\nTitle: ${data.title}\nSynopsis: ${data.description}\nType: ${firstLetterUpperCase(data.type)}\nStatus: ${firstLetterUpperCase(data.status)}\nYear: ${data.year}\nCreator: ${data.creator ?? 'Unknown'}\nAuthors: ${data.authors.join(', ')}\nArtists: ${data.artists.join(', ')}\n\nGenres: ${data.tags.genres.join(', ')}\nThemes: ${data.tags.themes.join(', ')}\nFormats: ${data.tags.formats.join(', ')}`;
+
+    const messageButtons = {
+      attachment: {
+        type: 'template',
+        payload: {
+          template_type: 'button',
+          text,
+          buttons: [
+            {
+              type: 'web_url',
+              title: 'View In Tapas.io',
+              url: data.tapas
+            }
+          ]
+        }
+      }
+    };
+    await messenger.send(messageButtons);
+    await messenger.send(attachment);
+    
+  } catch (error) {
+    console.error(`Error in executing '${commandName}' command:`, error);
+    await messenger.send({ text: 'An error occurred while processing your request.' });
+  }
+};
+
+module.exports = {
+  commandName,
+  version,
+  permission,
+  description,
+  author,
+  execute,
+};
