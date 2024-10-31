@@ -11,7 +11,7 @@ const execute = async ({ userMessage, messenger }) => {
     const axios = require('axios');
     const response = await axios.get(`https://muichiro-api.vercel.app/mangadex?&api_key=muichiro&search=${userMessage}`);
     const data = response.data.result;
-    const firstLetterUpperCase = (data) => data[0].toUpperCase() + data.slice(1);
+    const firstLetterUpperCase = (word) => word[0].toUpperCase() + word.slice(1);
 
     const attachment = {
       attachment: {
