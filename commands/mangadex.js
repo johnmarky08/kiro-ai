@@ -33,7 +33,7 @@ const execute = async ({ userMessage, messenger }) => {
           buttons: [
             {
               type: 'web_url',
-              title: 'View In Tapas.io',
+              title: 'View Manga',
               url: data.tapas
             }
           ]
