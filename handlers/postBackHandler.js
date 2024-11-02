@@ -11,10 +11,9 @@ module.exports = async (event, pageAccessToken) => {
       var commandPayload = require(path.join(__dirname, '..', 'commands', `${command}.js`)).payload;
       if (payload == commandPayload) {
         return await runCommand(command, messenger);
-      } else {
-        return await messenger.send('Postback not found!');
       }
     }
+    return await messenger.send('Postback not found!');
   } catch (error) {
     return await messenger.send('Postback Error: ' + error);
   }
