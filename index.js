@@ -3,7 +3,7 @@ const fs = require('fs-extra');
 const path = require('path');
 const messageHandler = require('./handlers/messageHandler');
 const postBackHandler = require('./handlers/postBackHandler');
-const { language } = require('./settings/functions.js');
+const { language, persistentMenu } = require('./settings/functions.js');
 
 require('dotenv').config();
 const app = express();
@@ -32,6 +32,8 @@ filteredFiles.map((file) => {
 
 const VERIFY_TOKEN = 'pagebot';
 const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
+
+persistentMenu(PAGE_ACCESS_TOKEN);
 
 app.get('/', (request, response) => {
   response.send('Success!');

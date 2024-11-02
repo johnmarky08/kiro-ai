@@ -45,7 +45,7 @@ const execute = async ({ userMessage, messenger }) => {
 
     if (data.description) {
       if ((data.description.length > 0) && (data.description.length <= 2000)) await messenger.send(`Synopsis:\n\n${data.description}`);
-      else await messenger.send("Synopsis is too long.");
+      else await messenger.send('Synopsis is too long.');
     }
 
     await messenger.send(attachment);

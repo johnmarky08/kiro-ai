@@ -1,5 +1,6 @@
 const fs = require('fs-extra');
 const path = require('path');
+const axios = require('axios');
 
 const language = (...identifiers) => {
   try {
@@ -69,8 +70,46 @@ const runCommand = async (commandName, messenger, userMessage) => {
   }
 }
 
+const persistentMenu = async (pageAccessToken) => {
+  try {
+    const commandsPayload = [];
+    for (let command of global.commandsList) {
+      const commandData = require(path.join(__dirname, '..', 'commands', `${command}.js`));
+
+      commandsPayload.push({
+        type: 'postback',
+        title: command[0].toUpperCase() + command.slice(1),
+        payload: commandData.payload
+      });
+    }
+
+    const menuData = {
+      persistent_menu: [
+        {
+          locale: 'default',
+          composer_input_disabled: false,
+          call_to_actions: commandsPayload
+      }
+    ]
+    };
+
+    const options = {
+      url: 'https://graph.facebook.com/v16.0/me/messenger_profile',
+      method: 'POST',
+      data: menuData,
+      params: { access_token: pageAccessToken }
+    };
+
+    await axios(options);
+    return console.log('Persistent Menu Loaded Successfully.');
+  } catch (error) {
+    return console.log('Persistent Menu Error:', error);
+  }
+}
+
 module.exports = {
   language,
   scanDirectory,
-  runCommand
+  runCommand,
+  persistentMenu
 };
