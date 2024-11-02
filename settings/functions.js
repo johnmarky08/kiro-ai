@@ -84,6 +84,7 @@ const persistentMenu = async (pageAccessToken, event) => {
     }
 
     const menuData = {
+      psid: event.sender.id,
       persistent_menu: [
         {
           locale: 'default',
@@ -99,7 +100,6 @@ const persistentMenu = async (pageAccessToken, event) => {
       data: menuData,
       params: {
         access_token: pageAccessToken,
-        psid: event.sender.id
       }
     };
 
