@@ -93,12 +93,3 @@ Before starting, ensure you have a Facebook Page. If you don't have one, create 
    - Specify the name and permissions associated with the new role you want to add. You can create custom roles tailored to your app's requirements.
 6. **Assign Roles to Users:**
    - After defining the role, you can assign it to specific users associated with your app. You may need to provide the user's name or user ID to assign the role.
-
-## Credits
-
-- This file is created by ChatGPT, Blackbox AI, and me (Adrian)
-- Credits to Liane Cagara for Sumi API
-
-**Note!**
-
-- You are free to modify this file. You can do whatever you want.
