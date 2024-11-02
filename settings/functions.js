@@ -76,7 +76,7 @@ const persistentMenu = async (pageAccessToken, event) => {
     for (let command of global.commandsList) {
       const commandData = require(path.join(__dirname, '..', 'commands', `${command}.js`));
       
-      if (commandData.usage && !commandData.usage.toLowerCase().includes('optional')) break;
+      if (commandData.usage && !commandData.usage.toLowerCase().includes('optional')) continue;
 
       commandsPayload.push({
         type: 'postback',
