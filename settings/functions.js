@@ -75,14 +75,22 @@ const persistentMenu = async (pageAccessToken, event) => {
     const commandsPayload = [];
     for (let command of global.commandsList) {
       const commandData = require(path.join(__dirname, '..', 'commands', `${command}.js`));
-      
+
       if (commandData.usage && !commandData.usage.toLowerCase().includes('optional')) continue;
 
-      commandsPayload.push({
-        type: 'postback',
-        title: `${global.config.prefix}${command}`,
-        payload: commandData.payload
-      });
+      if (command == 'help') {
+        commandsPayload.unshift({
+          type: 'postback',
+          title: `${global.config.prefix}${command} - View List Of All Commands`,
+          payload: commandData.payload
+        });
+      } else {
+        commandsPayload.push({
+          type: 'postback',
+          title: `${global.config.prefix}${command}`,
+          payload: commandData.payload
+        });
+      }
     }
 
     const menuData = {
