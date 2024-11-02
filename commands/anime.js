@@ -4,6 +4,7 @@ const permission = 0;
 const description = 'Random Anime Pictures';
 const author = 'John Marky Dev';
 const payload = 'ANIME_COMMAND';
+const usage = 'Optional: Text';
 
 const execute = async ({ userMessage, messenger }) => {
   try {
@@ -84,5 +85,6 @@ module.exports = {
   description,
   author,
   execute,
-  payload
+  payload,
+  usage
 };

@@ -75,11 +75,12 @@ const persistentMenu = async (pageAccessToken, event) => {
     const commandsPayload = [];
     for (let command of global.commandsList) {
       const commandData = require(path.join(__dirname, '..', 'commands', `${command}.js`));
+      
+      if (commandData.usage && !commandData.usage.toLowerCase().includes('optional')) break;
 
       commandsPayload.push({
         type: 'postback',
         title: `${global.config.prefix}${command}`,
-        description: command.description,
         payload: commandData.payload
       });
     }

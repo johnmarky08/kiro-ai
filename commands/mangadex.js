@@ -4,6 +4,7 @@ const permission = 0;
 const description = 'Get manga info via MangaDex';
 const author = 'John Marky Dev';
 const payload = 'MANGADEX_COMMAND';
+const usage = 'Text';
 
 const execute = async ({ userMessage, messenger }) => {
   try {
@@ -63,5 +64,6 @@ module.exports = {
   description,
   author,
   execute,
-  payload
+  payload,
+  usage
 };

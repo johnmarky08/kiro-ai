@@ -4,6 +4,7 @@ const permission = 0;
 const description = 'Ahoy Canvas';
 const author = 'John Marky Dev';
 const payload = 'AHOY_COMMAND';
+const usage = 'Text';
 
 const wrap = (context, text, maxWidth) => {
   return new Promise(resolve => {
@@ -104,5 +105,6 @@ module.exports = {
   description,
   author,
   execute,
-  payload
+  payload,
+  usage
 };

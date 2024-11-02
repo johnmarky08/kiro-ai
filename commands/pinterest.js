@@ -4,6 +4,7 @@ const permission = 0;
 const description = 'Search on Pinterest';
 const author = 'John Marky Dev';
 const payload = 'PINTEREST_COMMAND';
+const usage = 'Text';
 
 const execute = async ({ userMessage, messenger }) => {
   try {
@@ -38,5 +39,6 @@ module.exports = {
   description,
   author,
   execute,
-  payload
+  payload,
+  usage
 };
