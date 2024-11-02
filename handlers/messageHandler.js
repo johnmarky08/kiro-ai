@@ -2,6 +2,7 @@ const path = require('path');
 const moment = require('moment-timezone');
 const similar = require('string-similarity');
 const { runCommand } = require('../settings/functions');
+const { screenshot } = require('../settings/autoCommands');
 const Messenger = require('../model/messenger');
 
 module.exports = async (event, pageAccessToken) => {
@@ -31,6 +32,8 @@ module.exports = async (event, pageAccessToken) => {
         helpPostBack(global.language('settings', 'wrongCommand', global.config.prefix))
       );
     }
+  } else {
+    if (userMessage.includes('https://')) return screenshot(userMessage, messenger);
   }
 };
 
