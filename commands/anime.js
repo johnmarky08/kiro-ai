@@ -3,6 +3,7 @@ const version = '1.0.0';
 const permission = 0;
 const description = 'Random Anime Pictures';
 const author = 'John Marky Dev';
+const payload = 'ANIME_COMMAND';
 
 const execute = async ({ userMessage, messenger }) => {
   try {

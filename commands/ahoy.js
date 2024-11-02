@@ -3,6 +3,7 @@ const version = '1.0.0';
 const permission = 0;
 const description = 'Ahoy Canvas';
 const author = 'John Marky Dev';
+const payload = 'AHOY_COMMAND';
 
 const wrap = (context, text, maxWidth) => {
   return new Promise(resolve => {

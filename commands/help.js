@@ -3,6 +3,7 @@ const version = '1.0.0';
 const permission = 0;
 const description = 'List of all commands and its description';
 const author = 'John Marky Dev';
+const payload = 'HELP_COMMAND';
 
 const execute = async ({ userMessage, messenger }) => {
   try {

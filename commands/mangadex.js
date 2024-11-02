@@ -3,6 +3,7 @@ const version = '2.3.1';
 const permission = 0;
 const description = 'Get manga info via MangaDex';
 const author = 'John Marky Dev';
+const payload = 'MANGADEX_COMMAND';
 
 const execute = async ({ userMessage, messenger }) => {
   try {

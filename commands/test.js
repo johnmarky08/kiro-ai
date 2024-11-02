@@ -3,6 +3,7 @@ const version = '1.0.0';
 const permission = 1;
 const description = 'For testing purposes';
 const author = 'John Marky Dev';
+const payload = 'TEST_COMMAND';
 
 const execute = async ({ userMessage, messenger }) => {
   try {

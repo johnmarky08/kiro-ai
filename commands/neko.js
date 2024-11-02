@@ -3,6 +3,7 @@ const version = '1.5.6';
 const permission = 0;
 const description = 'Random Nekooo 😻';
 const author = 'John Marky Dev';
+const payload = 'NEKO_COMMAND';
 
 const execute = async ({ userMessage, messenger }) => {
   try {

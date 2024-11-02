@@ -3,6 +3,7 @@ const version = '1.0.0';
 const permission = 0;
 const description = 'Bot Owner';
 const author = 'John Marky Dev';
+const payload = 'OWNER_COMMAND';
 
 const execute = async ({ userMessage, messenger }) => {
   try {

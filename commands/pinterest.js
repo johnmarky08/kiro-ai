@@ -3,6 +3,7 @@ const version = '1.0.0';
 const permission = 0;
 const description = 'Search on Pinterest';
 const author = 'John Marky Dev';
+const payload = 'PINTEREST_COMMAND';
 
 const execute = async ({ userMessage, messenger }) => {
   try {
