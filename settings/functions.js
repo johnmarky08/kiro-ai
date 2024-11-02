@@ -78,7 +78,8 @@ const persistentMenu = async (pageAccessToken, event) => {
 
       commandsPayload.push({
         type: 'postback',
-        title: command[0].toUpperCase() + command.slice(1),
+        title: `${global.config.prefix}${command}`,
+        description: command.description,
         payload: commandData.payload
       });
     }
