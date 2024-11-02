@@ -24,7 +24,7 @@ const execute = async ({ userMessage, messenger }) => {
             commandInfo.commandName
           }\n» Version: ${commandInfo.version}\n» Description: ${
             commandInfo.description
-          }${(command.usage ? `\n» Usage: ${command.usage}` : '')}\n» Author: ${commandInfo.author}\n» Has Permission: ${_perm}`
+          }${(commandInfo.usage ? `\n» Usage: ${commandInfo.usage}` : '')}\n» Author: ${commandInfo.author}\n» Has Permission: ${_perm}`
         );
       }
     } catch {
