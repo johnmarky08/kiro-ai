@@ -18,6 +18,7 @@ global.commandsList = [];
 var filteredFiles = fs
   .readdirSync('./commands/')
   .filter((file) => file.indexOf('.') !== 0 && file.slice(-3) === '.js');
+
 filteredFiles.map((file) => {
   var fileName = require(path.join(__dirname, 'commands', file));
   console.log(

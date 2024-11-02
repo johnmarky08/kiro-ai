@@ -7,7 +7,7 @@ module.exports = async (event, pageAccessToken) => {
   const payload = event.postback.payload;
 
   try {
-    for (let command in global.commandsList) {
+    for (let command of global.commandsList) {
       var commandPayload = require(path.join(__dirname, '..', 'commands', `${command}.js`)).payload;
       if (payload == commandPayload) {
         return await runCommand(command, messenger);
