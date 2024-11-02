@@ -3,7 +3,7 @@ const fs = require('fs-extra');
 const path = require('path');
 const messageHandler = require('./handlers/messageHandler');
 const postBackHandler = require('./handlers/postBackHandler');
-const { language, persistentMenu } = require('./settings/functions.js');
+const { language, persistentMenu, getStarted } = require('./settings/functions.js');
 
 require('dotenv').config();
 const app = express();
@@ -63,6 +63,7 @@ app.post('/webhook', async (request, response) => {
       if (entry.messaging) {
         const event = entry.messaging[0];
         
+        await getStarted(PAGE_ACCESS_TOKEN);
         await persistentMenu(PAGE_ACCESS_TOKEN, event);
         
         if (event.message) {

@@ -104,15 +104,22 @@ const persistentMenu = async (pageAccessToken, event) => {
     };
 
     await axios(options);
-    return console.log('Persistent Menu Loaded Successfully.');
+    return console.log('Persistent Menu Loaded Successfully!');
   } catch (error) {
     return console.log('Persistent Menu Error:', error);
   }
 }
 
+const getStarted = async (pageAccessToken) => {
+  await axios.post(`https://graph.facebook.com/v21.0/me/messenger_profile?access_token=${pageAccessToken}`, {
+    get_started: { payload: 'HELP_COMMAND' }
+  });
+  console.log('Get Started Button Loaded Successfully..');
+}
 module.exports = {
   language,
   scanDirectory,
   runCommand,
-  persistentMenu
+  persistentMenu,
+  getStarted
 };
