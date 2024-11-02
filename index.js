@@ -33,8 +33,6 @@ filteredFiles.map((file) => {
 const VERIFY_TOKEN = 'pagebot';
 const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
 
-persistentMenu(PAGE_ACCESS_TOKEN);
-
 app.get('/', (request, response) => {
   response.send('Success!');
 });
@@ -64,6 +62,9 @@ app.post('/webhook', async (request, response) => {
       const entry = body.entry[0];
       if (entry.messaging) {
         const event = entry.messaging[0];
+        
+        persistentMenu(PAGE_ACCESS_TOKEN, event);
+        
         if (event.message) {
           await messageHandler(event, PAGE_ACCESS_TOKEN);
         } else if (event.postback) {

@@ -70,7 +70,7 @@ const runCommand = async (commandName, messenger, userMessage) => {
   }
 }
 
-const persistentMenu = async (pageAccessToken) => {
+const persistentMenu = async (pageAccessToken, event) => {
   try {
     const commandsPayload = [];
     for (let command of global.commandsList) {
@@ -94,10 +94,13 @@ const persistentMenu = async (pageAccessToken) => {
     };
 
     const options = {
-      url: 'https://graph.facebook.com/v16.0/me/messenger_profile',
+      url: 'https://graph.facebook.com/v21.0/me/custom_user_settings',
       method: 'POST',
       data: menuData,
-      params: { access_token: pageAccessToken }
+      params: {
+        access_token: pageAccessToken,
+        psid: event.sender.id
+      }
     };
 
     await axios(options);
