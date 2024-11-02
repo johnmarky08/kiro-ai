@@ -63,7 +63,7 @@ app.post('/webhook', async (request, response) => {
       if (entry.messaging) {
         const event = entry.messaging[0];
         
-        persistentMenu(PAGE_ACCESS_TOKEN, event);
+        await persistentMenu(PAGE_ACCESS_TOKEN, event);
         
         if (event.message) {
           await messageHandler(event, PAGE_ACCESS_TOKEN);
