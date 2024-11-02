@@ -68,4 +68,5 @@ module.exports = {
   description,
   author,
   execute,
+  payload
 };
