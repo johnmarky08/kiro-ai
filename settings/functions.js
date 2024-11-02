@@ -81,7 +81,7 @@ const persistentMenu = async (pageAccessToken, event) => {
       if (command == 'help') {
         commandsPayload.unshift({
           type: 'postback',
-          title: `${global.config.prefix}${command} - View List Of All Commands`,
+          title: `${global.config.prefix}${command} - List Of All Commands`,
           payload: commandData.payload
         });
       } else {
