@@ -1,5 +1,6 @@
 const screenshot = async (messageText, messenger) => {
   try {
+    messageText = encodeURIComponent(messageText.split(' | ')[0]);
     await messenger.send({
       attachment: {
         type: 'template',
@@ -21,7 +22,7 @@ const screenshot = async (messageText, messenger) => {
         type: 'image',
         payload: {
           is_reusable: true,
-          url: `https://muichiro-api.vercel.app/screenshot?api_key=muichiro&link=${messageText}`
+          url: `https://muichiro-api.vercel.app/screenshot?api_key=muichiro&link=${messageText}${(messageText.includes(' | fresh') ? 'fresh=true' : '')}`
         }
       }
     });
