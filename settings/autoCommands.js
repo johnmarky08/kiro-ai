@@ -1,4 +1,4 @@
-const screenshot = async ({ userMessage, messenger }) => {
+const screenshot = async ({ messageText, messenger }) => {
   try {
     await messenger.send({
       attachment: {
@@ -10,7 +10,7 @@ const screenshot = async ({ userMessage, messenger }) => {
             {
               type: 'web_url',
               title: 'View Website',
-              url: userMessage
+              url: messageText
             }
           ]
         }
@@ -21,7 +21,7 @@ const screenshot = async ({ userMessage, messenger }) => {
         type: 'image',
         payload: {
           is_reusable: true,
-          url: `https://muichiro-api.vercel.app/screenshot?api_key=muichiro&link=${userMessage}`
+          url: `https://muichiro-api.vercel.app/screenshot?api_key=muichiro&link=${messageText}`
         }
       }
     });
