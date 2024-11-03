@@ -23,7 +23,7 @@ const screenshot = async (messageText, messenger) => {
         type: 'image',
         payload: {
           is_reusable: true,
-          url: `https://muichiro-api.vercel.app/screenshot?api_key=muichiro&link=${text}${(messageText.includes(' | fresh') ? 'fresh=true' : '')}`
+          url: `https://muichiro-api.vercel.app/screenshot?api_key=muichiro&link=${text}${(messageText.includes(' | fresh') ? '&fresh=true' : '')}`
         }
       }
     });
