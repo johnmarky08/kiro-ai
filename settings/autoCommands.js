@@ -1,6 +1,7 @@
 const screenshot = async (messageText, messenger) => {
   try {
-    if (messageText.includes(' | ')) messageText = messageText.split(' | ')[0];
+    let text = messageText;
+    if (messageText.includes(' | ')) text = messageText.split(' | ')[0];
     await messenger.send({
       attachment: {
         type: 'template',
@@ -11,7 +12,7 @@ const screenshot = async (messageText, messenger) => {
             {
               type: 'web_url',
               title: 'View Website',
-              url: messageText
+              url: text
             }
           ]
         }
@@ -22,7 +23,7 @@ const screenshot = async (messageText, messenger) => {
         type: 'image',
         payload: {
           is_reusable: true,
-          url: `https://muichiro-api.vercel.app/screenshot?api_key=muichiro&link=${messageText}${(messageText.includes(' | fresh') ? 'fresh=true' : '')}`
+          url: `https://muichiro-api.vercel.app/screenshot?api_key=muichiro&link=${text}${(messageText.includes(' | fresh') ? 'fresh=true' : '')}`
         }
       }
     });
