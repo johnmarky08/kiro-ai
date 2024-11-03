@@ -33,7 +33,7 @@ module.exports = async (event, pageAccessToken) => {
       );
     }
   } else {
-    if (messageText.startsWith('https://')) return screenshot(messageText, messenger);
+    if (messageText.startsWith('https://')) return await screenshot(messageText, messenger);
   }
 };
 
