@@ -1,6 +1,6 @@
 const screenshot = async (messageText, messenger) => {
   try {
-    messageText = encodeURIComponent(messageText.split(' | ')[0]);
+    if (messageText.includes(' | ')) messageText = messageText.split(' | ')[0];
     await messenger.send({
       attachment: {
         type: 'template',
