@@ -1,4 +1,4 @@
-const screenshot = async ({ messageText, messenger }) => {
+const screenshot = async (messageText, messenger) => {
   try {
     await messenger.send({
       attachment: {
